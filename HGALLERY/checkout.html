@@ -1,0 +1,455 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout - HGALLERY</title>
+    <meta name="description" content="Complete your order at HGALLERY." />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+    <style>
+      .checkout-section {
+        padding: 40px 0 80px;
+      }
+      .checkout-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 40px;
+      }
+
+      .checkout-form {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 32px;
+        box-shadow: var(--shadow-md);
+      }
+      .checkout-form h2 {
+        font-size: 22px;
+        margin-bottom: 24px;
+      }
+      .checkout-form h2 i {
+        color: var(--primary);
+        margin-right: 10px;
+      }
+      .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .form-group {
+        margin-bottom: 16px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+      .form-group .required {
+        color: var(--danger);
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-sm);
+        font-size: 14px;
+        transition: var(--transition);
+        background: var(--white);
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px rgba(139, 30, 34, 0.08);
+      }
+      .form-group textarea {
+        min-height: 80px;
+        resize: vertical;
+      }
+
+      .order-summary {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 32px;
+        box-shadow: var(--shadow-md);
+        position: sticky;
+        top: 120px;
+        align-self: start;
+      }
+      .order-summary h3 {
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .order-summary h3 i {
+        color: var(--primary);
+        margin-right: 10px;
+      }
+      .order-item {
+        display: flex;
+        gap: 12px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border-light);
+      }
+      .order-item img {
+        width: 56px;
+        height: 56px;
+        object-fit: cover;
+        border-radius: var(--radius-sm);
+      }
+      .order-item .info {
+        flex: 1;
+      }
+      .order-item .info h4 {
+        font-size: 14px;
+        margin-bottom: 2px;
+      }
+      .order-item .info .price {
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .order-item .info .qty {
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+      .order-total {
+        padding: 16px 0;
+      }
+      .order-total .row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 14px;
+      }
+      .order-total .row.total {
+        font-size: 20px;
+        font-weight: 800;
+        color: var(--primary);
+        border-top: 2px solid var(--border);
+        padding-top: 16px;
+        margin-top: 8px;
+      }
+
+      .payment-methods {
+        margin: 16px 0;
+      }
+      .payment-methods label {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border: 2px solid var(--border);
+        border-radius: var(--radius-sm);
+        cursor: pointer;
+        transition: var(--transition);
+        margin-bottom: 8px;
+      }
+      .payment-methods label:hover {
+        border-color: var(--primary);
+      }
+      .payment-methods label.active {
+        border-color: var(--primary);
+        background: rgba(139, 30, 34, 0.04);
+      }
+      .payment-methods label input[type="radio"] {
+        accent-color: var(--primary);
+        width: 18px;
+        height: 18px;
+      }
+      .payment-methods label .icon {
+        font-size: 24px;
+        width: 40px;
+        text-align: center;
+      }
+
+      .place-order-btn {
+        width: 100%;
+        padding: 16px;
+        font-size: 18px;
+        margin-top: 16px;
+      }
+
+      @media (max-width: 992px) {
+        .checkout-grid {
+          grid-template-columns: 1fr;
+        }
+        .order-summary {
+          position: static;
+        }
+      }
+      @media (max-width: 768px) {
+        .form-row {
+          grid-template-columns: 1fr;
+        }
+        .checkout-form {
+          padding: 20px;
+        }
+        .order-summary {
+          padding: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="checkout">
+    <div id="header-placeholder"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Checkout</h1>
+          <p>Complete your order</p>
+        </div>
+      </section>
+
+      <section class="checkout-section">
+        <div class="container">
+          <div class="checkout-grid">
+            <!-- Billing Form -->
+            <div class="checkout-form">
+              <h2><i class="fas fa-user"></i> Billing Details</h2>
+              <form id="checkoutForm">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>First Name <span class="required">*</span></label
+                    ><input
+                      type="text"
+                      id="firstName"
+                      required
+                      placeholder="John"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Last Name <span class="required">*</span></label
+                    ><input
+                      type="text"
+                      id="lastName"
+                      required
+                      placeholder="Doe"
+                    />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Email Address <span class="required">*</span></label
+                  ><input
+                    type="email"
+                    id="email"
+                    required
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Phone Number <span class="required">*</span></label
+                  ><input
+                    type="tel"
+                    id="phone"
+                    required
+                    placeholder="+254 700 000 000"
+                  />
+                </div>
+                <div class="form-group">
+                  <label>Street Address <span class="required">*</span></label
+                  ><input
+                    type="text"
+                    id="address"
+                    required
+                    placeholder="123 Main Street"
+                  />
+                </div>
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>City <span class="required">*</span></label
+                    ><input
+                      type="text"
+                      id="city"
+                      required
+                      placeholder="Nairobi"
+                    />
+                  </div>
+                  <div class="form-group">
+                    <label>Postal Code</label
+                    ><input type="text" id="postal" placeholder="00100" />
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label>Order Notes</label
+                  ><textarea
+                    id="notes"
+                    placeholder="Special instructions for delivery..."
+                  ></textarea>
+                </div>
+              </form>
+            </div>
+
+            <!-- Order Summary -->
+            <div class="order-summary">
+              <h3><i class="fas fa-shopping-bag"></i> Your Order</h3>
+              <div id="orderItems"><!-- Dynamic --></div>
+              <div class="order-total" id="orderTotal"><!-- Dynamic --></div>
+
+              <div class="payment-methods">
+                <h4 style="margin-bottom: 12px; font-size: 16px">
+                  Payment Method
+                </h4>
+                <label class="active"
+                  ><input
+                    type="radio"
+                    name="payment"
+                    value="mpesa"
+                    checked
+                  /><span class="icon"><i class="fas fa-mobile-alt"></i></span>
+                  M-Pesa</label
+                >
+                <label
+                  ><input type="radio" name="payment" value="bank" /><span
+                    class="icon"
+                    ><i class="fas fa-university"></i
+                  ></span>
+                  Bank Transfer</label
+                >
+                <label
+                  ><input type="radio" name="payment" value="cash" /><span
+                    class="icon"
+                    ><i class="fas fa-money-bill-wave"></i
+                  ></span>
+                  Cash on Delivery</label
+                >
+              </div>
+
+              <button
+                class="btn btn-primary place-order-btn"
+                id="placeOrderBtn"
+              >
+                <i class="fas fa-check"></i> Place Order
+              </button>
+              <p
+                style="
+                  font-size: 12px;
+                  color: var(--text-muted);
+                  text-align: center;
+                  margin-top: 12px;
+                "
+              >
+                By placing an order, you agree to our
+                <a href="terms.html" style="color: var(--primary)"
+                  >Terms & Conditions</a
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+
+        // Load cart
+        const cartData = JSON.parse(
+          localStorage.getItem("hgallery_cart") ||
+            '{"items":[],"total":0,"count":0}',
+        );
+        const itemsContainer = document.getElementById("orderItems");
+        const totalContainer = document.getElementById("orderTotal");
+
+        if (cartData.items.length === 0) {
+          itemsContainer.innerHTML =
+            '<p style="color: var(--text-muted);">Your cart is empty. <a href="products.html" style="color: var(--primary);">Shop now</a></p>';
+          document.getElementById("placeOrderBtn").disabled = true;
+          return;
+        }
+
+        itemsContainer.innerHTML = cartData.items
+          .map(
+            (item) => `
+        <div class="order-item">
+          <img src="${item.image || "assets/images/placeholder.jpg"}" alt="${item.name}" />
+          <div class="info">
+            <h4>${item.name}</h4>
+            <span class="price">KSh ${item.price.toLocaleString()}</span>
+            <span class="qty">× ${item.quantity}</span>
+          </div>
+        </div>
+      `,
+          )
+          .join("");
+
+        totalContainer.innerHTML = `
+        <div class="row"><span>Subtotal</span><span>KSh ${cartData.total.toLocaleString()}</span></div>
+        <div class="row"><span>Delivery</span><span>KSh 0</span></div>
+        <div class="row total"><span>Total</span><span>KSh ${cartData.total.toLocaleString()}</span></div>
+      `;
+
+        // Payment method selection
+        document.querySelectorAll(".payment-methods label").forEach((label) => {
+          label.addEventListener("click", () => {
+            document
+              .querySelectorAll(".payment-methods label")
+              .forEach((l) => l.classList.remove("active"));
+            label.classList.add("active");
+          });
+        });
+
+        // Place order
+        document
+          .getElementById("placeOrderBtn")
+          .addEventListener("click", () => {
+            const firstName = document.getElementById("firstName").value.trim();
+            const lastName = document.getElementById("lastName").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const phone = document.getElementById("phone").value.trim();
+            const address = document.getElementById("address").value.trim();
+            const city = document.getElementById("city").value.trim();
+
+            if (
+              !firstName ||
+              !lastName ||
+              !email ||
+              !phone ||
+              !address ||
+              !city
+            ) {
+              alert("Please fill in all required fields.");
+              return;
+            }
+
+            const payment = document.querySelector(
+              'input[name="payment"]:checked',
+            ).value;
+            const paymentLabels = {
+              mpesa: "M-Pesa",
+              bank: "Bank Transfer",
+              cash: "Cash on Delivery",
+            };
+
+            alert(
+              `✅ Order placed successfully!\n\nThank you ${firstName} ${lastName}!\n\nOrder Summary:\n- Items: ${cartData.count}\n- Total: KSh ${cartData.total.toLocaleString()}\n- Payment: ${paymentLabels[payment]}\n- Delivery: ${address}, ${city}\n\nWe will contact you shortly on ${phone}.\n\n📧 Confirmation sent to ${email}`,
+            );
+
+            localStorage.removeItem("hgallery_cart");
+            window.location.href = "index.html";
+          });
+      });
+    </script>
+  </body>
+</html>

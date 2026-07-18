@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Search Results - HGALLERY</title>
+    <meta name="description" content="Search for products at HGALLERY." />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/products.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .search-page {
+        padding: 3rem 0;
+      }
+      .search-header {
+        margin-bottom: 2rem;
+      }
+      .search-header h2 {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+      }
+      .search-bar-large {
+        display: flex;
+        gap: 0.8rem;
+        max-width: 600px;
+      }
+      .search-bar-large input {
+        flex: 1;
+        padding: 0.8rem 1.2rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        font-family: var(--font-primary);
+        transition: var(--transition-fast);
+      }
+      .search-bar-large input:focus {
+        outline: none;
+        border-color: var(--primary);
+      }
+      .search-bar-large button {
+        padding: 0.8rem 1.5rem;
+        background: var(--primary);
+        color: var(--white);
+        border: none;
+        border-radius: var(--radius-sm);
+        font-size: 1rem;
+        cursor: pointer;
+        transition: var(--transition-fast);
+      }
+      .search-bar-large button:hover {
+        background: var(--primary-dark);
+      }
+      .search-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .search-result-item {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-base);
+      }
+      .search-result-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .search-result-item a {
+        display: block;
+      }
+      .search-result-item img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+      .search-result-item .info {
+        padding: 1rem;
+      }
+      .search-result-item .info h4 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      .search-result-item .info .category {
+        font-size: 0.8rem;
+        color: var(--gray-400);
+      }
+      .search-result-item .info .price {
+        font-weight: 700;
+        color: var(--primary);
+        display: block;
+        margin-top: 0.3rem;
+      }
+      .search-empty {
+        text-align: center;
+        padding: 4rem 0;
+      }
+      .search-empty i {
+        font-size: 4rem;
+        color: var(--gray-300);
+        margin-bottom: 1rem;
+      }
+      .search-empty p {
+        color: var(--gray-500);
+      }
+    </style>
+  </head>
+  <body data-page="search">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Search</h1>
+          <p>Find the products you're looking for</p>
+        </div>
+      </section>
+
+      <section class="search-page">
+        <div class="container">
+          <div id="searchPageContent">
+            <div class="search-header">
+              <h2>Search Products</h2>
+              <div class="search-bar-large">
+                <input
+                  type="text"
+                  id="searchInput"
+                  placeholder="Search for products..."
+                  autofocus
+                />
+                <button id="searchBtn">
+                  <i class="fas fa-search"></i> Search
+                </button>
+              </div>
+            </div>
+            <div id="searchResults"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Search } from "./js/search.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+        new Search();
+      });
+    </script>
+  </body>
+</html>

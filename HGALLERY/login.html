@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login - HGALLERY</title>
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="https://cloudflare.com" />
+    <style>
+      .login-wrapper {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--bg-alt, #f9f9f9);
+        padding: 20px;
+      }
+      .login-card {
+        background: var(--white, #ffffff);
+        max-width: 420px;
+        width: 100%;
+        padding: 40px;
+        border-radius: var(--radius-lg, 12px);
+        box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.05));
+      }
+      .login-brand {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .login-brand h2 {
+        font-size: 28px;
+        font-weight: 800;
+        margin-bottom: 5px;
+      }
+      .login-brand h2 span {
+        color: var(--primary, #8b1e22);
+      }
+      .login-brand p {
+        color: var(--text-muted, #666);
+        font-size: 14px;
+      }
+      .form-group {
+        margin-bottom: 20px;
+      }
+      .form-group label {
+        display: block;
+        font-weight: 600;
+        font-size: 14px;
+        margin-bottom: 6px;
+      }
+      .input-icon-wrap {
+        position: relative;
+      }
+      .input-icon-wrap i {
+        position: absolute;
+        left: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted, #999);
+      }
+      .form-control {
+        width: 100%;
+        padding: 12px 16px 12px 45px;
+        border: 2px solid var(--border, #eee);
+        border-radius: var(--radius-sm, 6px);
+        font-size: 15px;
+        transition: var(--transition, all 0.3s);
+      }
+      .form-control:focus {
+        outline: none;
+        border-color: var(--primary, #8b1e22);
+      }
+      .btn-login {
+        width: 100%;
+        background: var(--primary, #8b1e22);
+        color: white;
+        padding: 14px;
+        border: none;
+        border-radius: var(--radius-sm, 6px);
+        font-weight: 700;
+        font-size: 16px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+      }
+      .btn-login:hover {
+        opacity: 0.9;
+      }
+      .error-banner {
+        background: rgba(220, 53, 69, 0.1);
+        color: #dc3545;
+        padding: 12px;
+        border-radius: 6px;
+        font-size: 14px;
+        margin-bottom: 20px;
+        display: none;
+        align-items: center;
+        gap: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-wrapper">
+      <div class="login-card">
+        <div class="login-brand">
+          <h2>HGALLERY <span>Admin</span></h2>
+          <p>Sign in to manage your inventory and store</p>
+        </div>
+
+        <div id="errorBanner" class="error-banner">
+          <i class="fa-solid fa-circle-exclamation"></i>
+          <span id="errorText">Invalid credentials</span>
+        </div>
+
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-envelope"></i>
+              <input
+                type="email"
+                id="email"
+                class="form-control"
+                placeholder="admin@hgallery.com"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <div class="input-icon-wrap">
+              <i class="fa-solid fa-lock"></i>
+              <input
+                type="password"
+                id="password"
+                class="form-control"
+                placeholder="••••••••"
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" id="loginBtn" class="btn-login">
+            Authenticate
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async function (e) {
+          e.preventDefault();
+
+          const loginBtn = document.getElementById("loginBtn");
+          const errorBanner = document.getElementById("errorBanner");
+          const errorText = document.getElementById("errorText");
+
+          loginBtn.disabled = true;
+          loginBtn.innerText = "Authenticating...";
+          errorBanner.style.display = "none";
+
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:5000/api/auth/login",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email, password }),
+              },
+            );
+
+            const resData = await response.json();
+
+            if (response.ok && resData.success) {
+              // Store the encrypted JWT signature into memory storage
+              localStorage.setItem(
+                "token",
+                resData.data.token || resData.token,
+              );
+
+              // Set browser fallback cookies
+              document.cookie = `token=${resData.data.token || resData.token}; path=/; max-age=86400; SameSite=Lax`;
+
+              window.location.href = "product-upload.html";
+            } else {
+              throw new Error(
+                resData.message || "Access Denied. Check credentials.",
+              );
+            }
+          } catch (err) {
+            errorText.innerText = err.message;
+            errorBanner.style.display = "flex";
+          } finally {
+            loginBtn.disabled = false;
+            loginBtn.innerText = "Authenticate";
+          }
+        });
+    </script>
+  </body>
+</html>

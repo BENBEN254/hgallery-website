@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "title": "Glass Installation",
+    "description": "Professional supply and installation of residential and commercial glass.",
+    "icon": "fas fa-border-all",
+    "image": "assets/images/services/glass.jpg",
+    "features": [
+      "Tempered Glass",
+      "Office Partitions",
+      "Custom Designs",
+      "Professional Installation"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Aluminium Fabrication",
+    "description": "High-quality aluminium windows, doors and partitions.",
+    "icon": "fas fa-vector-square",
+    "image": "assets/images/services/aluminium.jpg",
+    "features": ["Sliding Windows", "Doors", "Office Partitions", "Maintenance"]
+  }
+]

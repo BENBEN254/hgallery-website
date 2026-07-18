@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Services - HGALLERY Professional Installations</title>
+    <meta
+      name="description"
+      content="Professional glass, aluminium, and home improvement installation services in Nairobi, Kenya."
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/services.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .services-hero {
+        padding: 3rem 0;
+        background: linear-gradient(
+          135deg,
+          var(--primary) 0%,
+          var(--primary-dark) 100%
+        );
+        color: var(--white);
+      }
+      .services-hero h1 {
+        font-size: 2.5rem;
+      }
+      .services-hero p {
+        opacity: 0.8;
+        max-width: 500px;
+      }
+      .services-grid-section {
+        padding: 4rem 0;
+      }
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+      .service-card {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-base);
+      }
+      .service-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
+      }
+      .service-card .service-image {
+        height: 200px;
+        overflow: hidden;
+      }
+      .service-card .service-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-slow);
+      }
+      .service-card:hover .service-image img {
+        transform: scale(1.05);
+      }
+      .service-card .service-body {
+        padding: 1.5rem;
+      }
+      .service-card .service-body .icon {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.8rem;
+      }
+      .service-card .service-body .icon i {
+        color: var(--white);
+        font-size: 1.2rem;
+      }
+      .service-card .service-body h4 {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+      .service-card .service-body p {
+        color: var(--gray-500);
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      .service-card .service-body .btn-link {
+        color: var(--primary);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .service-card .service-body .btn-link:hover {
+        gap: 0.8rem;
+      }
+      .service-benefits {
+        padding: 4rem 0;
+        background: var(--gray-100);
+      }
+      .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 2rem;
+      }
+      .benefit-item {
+        text-align: center;
+      }
+      .benefit-item .icon {
+        width: 56px;
+        height: 56px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+      .benefit-item .icon i {
+        color: var(--white);
+        font-size: 1.5rem;
+      }
+      .benefit-item h4 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+      .benefit-item p {
+        font-size: 0.9rem;
+        color: var(--gray-500);
+      }
+      .cta-section {
+        padding: 4rem 0;
+        background: var(--primary);
+        color: var(--white);
+        text-align: center;
+      }
+      .cta-section h2 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .cta-section p {
+        opacity: 0.8;
+        max-width: 500px;
+        margin: 0 auto 2rem;
+      }
+      @media (max-width: 768px) {
+        .benefits-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .services-hero h1 {
+          font-size: 2rem;
+        }
+      }
+      @media (max-width: 480px) {
+        .benefits-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="services">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="services-hero">
+        <div class="container">
+          <h1>Our Services</h1>
+          <p>Professional installation and home improvement solutions</p>
+        </div>
+      </section>
+
+      <section class="services-grid-section">
+        <div class="container">
+          <div class="services-grid" id="servicesGrid">
+            <!-- Loaded dynamically from services.json -->
+          </div>
+        </div>
+      </section>
+
+      <section class="service-benefits">
+        <div class="container">
+          <h2 class="section-title center">Why Choose Our Services</h2>
+          <div class="benefits-grid">
+            <div class="benefit-item">
+              <div class="icon"><i class="fas fa-user-check"></i></div>
+              <h4>Expert Team</h4>
+              <p>Certified professionals with years of experience</p>
+            </div>
+            <div class="benefit-item">
+              <div class="icon"><i class="fas fa-shield-alt"></i></div>
+              <h4>Warranty</h4>
+              <p>All installations come with a quality guarantee</p>
+            </div>
+            <div class="benefit-item">
+              <div class="icon"><i class="fas fa-clock"></i></div>
+              <h4>Timely Completion</h4>
+              <p>Projects delivered on schedule</p>
+            </div>
+            <div class="benefit-item">
+              <div class="icon"><i class="fas fa-tools"></i></div>
+              <h4>Quality Materials</h4>
+              <p>Premium products from trusted suppliers</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container">
+          <h2>Need Professional Installation?</h2>
+          <p>Contact us for a free consultation and quote</p>
+          <a href="contact.html" class="btn btn-white"
+            >Request a Quote <i class="fas fa-arrow-right"></i
+          ></a>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Services } from "./js/services.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+        const services = new Services();
+        await services.loadServices();
+        services.renderServices();
+      });
+    </script>
+  </body>
+</html>

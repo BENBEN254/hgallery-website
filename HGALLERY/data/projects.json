@@ -1,0 +1,92 @@
+[
+  {
+    "id": 1,
+    "title": "Luxury Frameless Shower Cubicle",
+    "category": "Shower Cubicles",
+    "location": "Karen, Nairobi",
+    "client": "Residential",
+    "year": "2026",
+    "image": "assets/images/projects/project-1.jpg",
+    "description": "Supply and installation of a premium frameless tempered glass shower cubicle."
+  },
+  {
+    "id": 2,
+    "title": "Corporate Glass Office Partitions",
+    "category": "Glass",
+    "location": "Westlands, Nairobi",
+    "client": "Commercial",
+    "year": "2026",
+    "image": "assets/images/projects/project-2.jpg",
+    "description": "Modern office partitioning using clear tempered safety glass."
+  },
+  {
+    "id": 3,
+    "title": "Aluminium Sliding Windows",
+    "category": "Aluminium",
+    "location": "Syokimau",
+    "client": "Residential",
+    "year": "2026",
+    "image": "assets/images/projects/project-3.jpg",
+    "description": "Fabrication and installation of powder-coated aluminium windows."
+  },
+  {
+    "id": 4,
+    "title": "Luxury Bathroom Mirrors",
+    "category": "Mirrors",
+    "location": "Kilimani",
+    "client": "Hotel",
+    "year": "2026",
+    "image": "assets/images/projects/project-4.jpg",
+    "description": "Custom LED mirrors installed for a boutique hotel."
+  },
+  {
+    "id": 5,
+    "title": "PVC Wall Panel Installation",
+    "category": "Wall Panels",
+    "location": "Ngong Road",
+    "client": "Office",
+    "year": "2026",
+    "image": "assets/images/projects/project-5.jpg",
+    "description": "Decorative waterproof wall panels for executive offices."
+  },
+  {
+    "id": 6,
+    "title": "Luxury Kitchen Renovation",
+    "category": "Kitchen",
+    "location": "Runda",
+    "client": "Residential",
+    "year": "2026",
+    "image": "assets/images/projects/project-6.jpg",
+    "description": "Kitchen sinks, splashbacks and aluminium cabinetry installation."
+  },
+  {
+    "id": 7,
+    "title": "Shopping Mall Glass Frontage",
+    "category": "Commercial Glass",
+    "location": "CBD, Nairobi",
+    "client": "Retail",
+    "year": "2025",
+    "image": "assets/images/projects/project-7.jpg",
+    "description": "Large commercial glass façade with aluminium framing."
+  },
+  {
+    "id": 8,
+    "title": "Executive Office Doors",
+    "category": "Aluminium",
+    "location": "Upper Hill",
+    "client": "Corporate",
+    "year": "2025",
+    "image": "assets/images/projects/project-8.jpg",
+    "description": "Premium aluminium office entrance doors with custom finishes."
+  },
+  {
+    "id": 9,
+    "title": "Modern Balcony Glass Railings",
+    "category": "Glass Railings",
+    "location": "Muthaiga",
+    "client": "Residential",
+    "year": "2025",
+    "image": "assets/images/projects/project-9.jpg",
+    "description": "Frameless tempered glass balcony railing installation."
+  }
+]

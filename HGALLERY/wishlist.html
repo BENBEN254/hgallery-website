@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wishlist - HGALLERY</title>
+    <meta
+      name="description"
+      content="Your saved favorite products at HGALLERY."
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .wishlist-section {
+        padding: 3rem 0;
+      }
+      .wishlist-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 2rem;
+      }
+      .wishlist-item {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        position: relative;
+        transition: var(--transition-base);
+      }
+      .wishlist-item:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+      }
+      .wishlist-item .image {
+        height: 200px;
+        overflow: hidden;
+      }
+      .wishlist-item .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .wishlist-item .body {
+        padding: 1.5rem;
+      }
+      .wishlist-item .body h4 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+      }
+      .wishlist-item .body .price {
+        font-weight: 700;
+        color: var(--primary);
+      }
+      .wishlist-item .remove {
+        position: absolute;
+        top: 0.8rem;
+        right: 0.8rem;
+        background: var(--white);
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        cursor: pointer;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-fast);
+      }
+      .wishlist-item .remove:hover {
+        background: var(--primary);
+        color: var(--white);
+      }
+      .empty-wishlist {
+        text-align: center;
+        padding: 4rem 0;
+      }
+      .empty-wishlist i {
+        font-size: 4rem;
+        color: var(--gray-300);
+        margin-bottom: 1rem;
+      }
+    </style>
+  </head>
+  <body data-page="wishlist">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>My Wishlist</h1>
+          <p>Your saved favorite products</p>
+        </div>
+      </section>
+
+      <section class="wishlist-section">
+        <div class="container">
+          <div id="wishlistContent">
+            <!-- Wishlist content loaded dynamically by wishlist.js -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Wishlist } from "./js/wishlist.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+        new Wishlist();
+      });
+    </script>
+  </body>
+</html>

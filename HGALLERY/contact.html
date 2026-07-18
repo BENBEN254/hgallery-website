@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact HGALLERY - Get in Touch</title>
+    <meta
+      name="description"
+      content="Contact HGALLERY for premium glass, aluminium, and home improvement solutions in Nairobi, Kenya."
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .contact-section {
+        padding: 3rem 0;
+      }
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 4rem;
+      }
+      .contact-info-list {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .contact-info-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .contact-info-item .icon {
+        width: 48px;
+        height: 48px;
+        background: var(--primary);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+      .contact-info-item .icon i {
+        color: var(--white);
+        font-size: 1.2rem;
+      }
+      .contact-info-item .content h4 {
+        font-size: 1rem;
+        margin-bottom: 0.2rem;
+      }
+      .contact-info-item .content p {
+        color: var(--gray-500);
+      }
+      .contact-info-item .content a {
+        color: var(--primary);
+      }
+      .contact-form {
+        background: var(--white);
+        padding: 2.5rem;
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-md);
+      }
+      .contact-form .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .contact-form label {
+        display: block;
+        font-weight: 600;
+        margin-bottom: 0.3rem;
+        font-size: 0.9rem;
+      }
+      .contact-form input,
+      .contact-form textarea,
+      .contact-form select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius-sm);
+        font-family: var(--font-primary);
+        transition: var(--transition-fast);
+      }
+      .contact-form input:focus,
+      .contact-form textarea:focus,
+      .contact-form select:focus {
+        outline: 2px solid var(--primary);
+      }
+      .contact-form textarea {
+        min-height: 150px;
+        resize: vertical;
+      }
+      .map-container {
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        margin: 2rem 0;
+      }
+      .map-container iframe {
+        width: 100%;
+        height: 400px;
+        border: 0;
+      }
+      @media (max-width: 768px) {
+        .contact-grid {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .contact-form {
+          padding: 1.5rem;
+        }
+        .map-container iframe {
+          height: 280px;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="contact">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Contact Us</h1>
+          <p>We'd love to hear from you</p>
+        </div>
+      </section>
+
+      <section class="contact-section">
+        <div class="container">
+          <div class="contact-grid">
+            <div>
+              <h2 class="section-title">Get in Touch</h2>
+              <p style="color: var(--gray-500); margin-bottom: 2rem">
+                Have a question or need a quote? Reach out to us and we'll get
+                back to you promptly.
+              </p>
+              <div class="contact-info-list">
+                <div class="contact-info-item">
+                  <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                  <div class="content">
+                    <h4>Call Us</h4>
+                    <p><a href="tel:+254726335283">+254 726 335 283</a></p>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="icon"><i class="fas fa-envelope"></i></div>
+                  <div class="content">
+                    <h4>Email Us</h4>
+                    <p>
+                      <a href="mailto:hgalleryltd@gmail.com"
+                        >hgalleryltd@gmail.com</a
+                      >
+                    </p>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                  <div class="content">
+                    <h4>Visit Us</h4>
+                    <p>Our Mall, Magadi Road<br />Nairobi, Kenya</p>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="icon"><i class="far fa-clock"></i></div>
+                  <div class="content">
+                    <h4>Business Hours</h4>
+                    <p>Mon - Sat: 8:00 AM - 6:00 PM</p>
+                    <p style="font-size: 0.85rem; opacity: 0.7">
+                      Sunday: By Appointment
+                    </p>
+                  </div>
+                </div>
+                <div class="contact-info-item">
+                  <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                  <div class="content">
+                    <h4>WhatsApp</h4>
+                    <p>
+                      <a href="https://wa.me/254726335283"
+                        >Chat with us directly</a
+                      >
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div>
+              <form class="contact-form" id="contactForm">
+                <h3 style="margin-bottom: 1.5rem">Send a Message</h3>
+                <div class="form-group">
+                  <label for="contactName">Your Name</label
+                  ><input
+                    type="text"
+                    id="contactName"
+                    required
+                    placeholder="John Doe"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contactEmail">Email Address</label
+                  ><input
+                    type="email"
+                    id="contactEmail"
+                    required
+                    placeholder="john@example.com"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contactPhone">Phone Number</label
+                  ><input
+                    type="tel"
+                    id="contactPhone"
+                    placeholder="+254 700 000 000"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="contactSubject">Subject</label
+                  ><select id="contactSubject">
+                    <option value="general">General Inquiry</option>
+                    <option value="quote">Request a Quote</option>
+                    <option value="installation">Installation Service</option>
+                    <option value="product">Product Information</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="contactMessage">Message</label
+                  ><textarea
+                    id="contactMessage"
+                    required
+                    placeholder="Tell us about your project or inquiry..."
+                  ></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Send Message <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="map-section">
+        <div class="container">
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.820066737803!2d36.8169!3d-1.3473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x182f1171c5c49f87%3A0x6e8b8c5a8b8c5a8b!2sMagadi%20Rd%2C%20Nairobi!5e0!3m2!1sen!2ske!4v1700000000000"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+
+        // Handle form submission
+        document
+          .getElementById("contactForm")
+          .addEventListener("submit", function (e) {
+            e.preventDefault();
+            alert(
+              "Thank you for your message! We will get back to you shortly.",
+            );
+            this.reset();
+          });
+      });
+    </script>
+  </body>
+</html>

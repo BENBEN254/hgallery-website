@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Terms & Conditions - HGALLERY</title>
+    <meta name="description" content="HGALLERY terms and conditions of use." />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .legal-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 3rem 0;
+      }
+      .legal-content h2 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        color: var(--primary);
+      }
+      .legal-content p {
+        color: var(--gray-600);
+        margin-bottom: 1rem;
+        line-height: 1.8;
+      }
+      .legal-content ul {
+        margin: 1rem 0 1.5rem 1.5rem;
+        color: var(--gray-600);
+      }
+      .legal-content ul li {
+        margin-bottom: 0.5rem;
+        list-style: disc;
+      }
+    </style>
+  </head>
+  <body data-page="terms">
+    <div id="header-placeholder"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Terms & Conditions</h1>
+          <p>Please read these terms carefully</p>
+        </div>
+      </section>
+
+      <section class="legal-content">
+        <div class="container">
+          <p><strong>Last updated:</strong> January 2026</p>
+
+          <h2>1. Acceptance of Terms</h2>
+          <p>
+            By using the HGALLERY website and services, you agree to these Terms
+            and Conditions. If you do not agree, please do not use our services.
+          </p>
+
+          <h2>2. Products and Services</h2>
+          <p>
+            HGALLERY offers premium glass, aluminium, shower cubicles, wall
+            panels, tools, and home décor products. We also provide professional
+            installation services.
+          </p>
+          <ul>
+            <li>All products are subject to availability</li>
+            <li>Prices are subject to change without notice</li>
+            <li>We reserve the right to refuse service or cancel orders</li>
+          </ul>
+
+          <h2>3. Pricing and Payment</h2>
+          <ul>
+            <li>All prices are in Kenyan Shillings (KES)</li>
+            <li>
+              Payment must be made in full before delivery or installation
+            </li>
+            <li>
+              We accept various payment methods including M-Pesa and bank
+              transfers
+            </li>
+          </ul>
+
+          <h2>4. Delivery and Installation</h2>
+          <ul>
+            <li>
+              Delivery timelines are estimates and may vary based on location
+            </li>
+            <li>
+              Installation services require site assessment before scheduling
+            </li>
+            <li>Customers must provide clear access for installation</li>
+          </ul>
+
+          <h2>5. Returns and Refunds</h2>
+          <ul>
+            <li>Products must be returned within 7 days of delivery</li>
+            <li>Items must be in original condition and packaging</li>
+            <li>Custom orders are non-refundable</li>
+            <li>Refunds will be processed within 14 business days</li>
+          </ul>
+
+          <h2>6. Warranty</h2>
+          <ul>
+            <li>All products come with manufacturer warranties</li>
+            <li>
+              Installation services are guaranteed for quality workmanship
+            </li>
+            <li>Warranty claims must be reported within the warranty period</li>
+          </ul>
+
+          <h2>7. User Responsibilities</h2>
+          <p>
+            You agree to provide accurate information when using our services.
+            You are responsible for maintaining the confidentiality of your
+            account credentials.
+          </p>
+
+          <h2>8. Intellectual Property</h2>
+          <p>
+            All content on this website, including images, text, logos, and
+            designs, is the property of HGALLERY and protected by copyright
+            laws.
+          </p>
+
+          <h2>9. Limitation of Liability</h2>
+          <p>
+            HGALLERY shall not be liable for indirect, incidental, or
+            consequential damages arising from the use of our products or
+            services.
+          </p>
+
+          <h2>10. Governing Law</h2>
+          <p>
+            These Terms shall be governed by and construed in accordance with
+            the laws of Kenya.
+          </p>
+
+          <h2>11. Contact Information</h2>
+          <p>For any questions regarding these Terms, please contact us:</p>
+          <p><strong>Email:</strong> hgalleryltd@gmail.com</p>
+          <p><strong>Phone:</strong> +254 726 335 283</p>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Utils } from "./js/utils.js";
+
+      const loader = new ComponentLoader();
+      document.addEventListener("DOMContentLoaded", async () => {
+        await loader.init();
+        new Utils();
+      });
+    </script>
+  </body>
+</html>

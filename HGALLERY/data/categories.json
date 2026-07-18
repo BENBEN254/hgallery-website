@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "name": "Glass",
+    "slug": "glass",
+    "image": "assets/images/categories/glass.jpg",
+    "icon": "fas fa-border-all",
+    "description": "Premium glass products for residential and commercial projects."
+  },
+  {
+    "id": 2,
+    "name": "Aluminium",
+    "slug": "aluminium",
+    "image": "assets/images/categories/aluminium.jpg",
+    "icon": "fas fa-vector-square",
+    "description": "Windows, doors, partitions and aluminium fabrication."
+  },
+  {
+    "id": 3,
+    "name": "Shower Cubicles",
+    "slug": "shower-cubicles",
+    "image": "assets/images/categories/shower.jpg",
+    "icon": "fas fa-shower",
+    "description": "Luxury frameless and framed shower enclosures."
+  },
+  {
+    "id": 4,
+    "name": "Mirrors",
+    "slug": "mirrors",
+    "image": "assets/images/categories/mirror.jpg",
+    "icon": "fas fa-square",
+    "description": "Decorative, LED and custom-made mirrors."
+  },
+  {
+    "id": 5,
+    "name": "Wall Panels",
+    "slug": "wall-panels",
+    "image": "assets/images/categories/wall-panels.jpg",
+    "icon": "fas fa-th-large",
+    "description": "Modern waterproof PVC and decorative wall panels."
+  },
+  {
+    "id": 6,
+    "name": "Power Tools",
+    "slug": "power-tools",
+    "image": "assets/images/categories/tools.jpg",
+    "icon": "fas fa-tools",
+    "description": "Professional power tools and workshop equipment."
+  },
+  {
+    "id": 7,
+    "name": "Hand Tools",
+    "slug": "hand-tools",
+    "image": "assets/images/categories/hand-tools.jpg",
+    "icon": "fas fa-hammer",
+    "description": "Reliable hand tools for professionals and DIY projects."
+  },
+  {
+    "id": 8,
+    "name": "Kitchen Accessories",
+    "slug": "kitchen-accessories",
+    "image": "assets/images/categories/kitchen.jpg",
+    "icon": "fas fa-sink",
+    "description": "Kitchen sinks, taps and accessories."
+  },
+  {
+    "id": 9,
+    "name": "Bathroom Accessories",
+    "slug": "bathroom-accessories",
+    "image": "assets/images/categories/bathroom.jpg",
+    "icon": "fas fa-bath",
+    "description": "Premium bathroom fittings and accessories."
+  },
+  {
+    "id": 10,
+    "name": "Home Décor",
+    "slug": "home-decor",
+    "image": "assets/images/categories/decor.jpg",
+    "icon": "fas fa-couch",
+    "description": "Interior décor products to elevate your living spaces."
+  },
+  {
+    "id": 11,
+    "name": "Picture Framing",
+    "slug": "picture-framing",
+    "image": "assets/images/categories/framing.jpg",
+    "icon": "fas fa-image",
+    "description": "Custom picture frames for homes, offices and galleries."
+  },
+  {
+    "id": 12,
+    "name": "Camping Gear",
+    "slug": "camping",
+    "image": "assets/images/categories/camping.jpg",
+    "icon": "fas fa-campground",
+    "description": "Quality camping equipment and outdoor accessories."
+  }
+]

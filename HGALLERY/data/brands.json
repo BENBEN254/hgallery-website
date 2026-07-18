@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "Makita",
+    "logo": "assets/images/brands/makita.png"
+  },
+  {
+    "id": 2,
+    "name": "Bosch",
+    "logo": "assets/images/brands/bosch.png"
+  },
+  {
+    "id": 3,
+    "name": "Stanley",
+    "logo": "assets/images/brands/stanley.png"
+  },
+  {
+    "id": 4,
+    "name": "Total Tools",
+    "logo": "assets/images/brands/total.png"
+  },
+  {
+    "id": 5,
+    "name": "Ingco",
+    "logo": "assets/images/brands/ingco.png"
+  },
+  {
+    "id": 6,
+    "name": "ToughBuilt",
+    "logo": "assets/images/brands/toughbuilt.png"
+  },
+  {
+    "id": 7,
+    "name": "Dewalt",
+    "logo": "assets/images/brands/dewalt.png"
+  },
+  {
+    "id": 8,
+    "name": "Milwaukee",
+    "logo": "assets/images/brands/milwaukee.png"
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "gallery": [
+    {
+      "id": 1,
+      "title": "Tempered Glass Door",
+      "category": "glass",
+      "image": "/assets/images/gallery/glass-door-1.jpg"
+    },
+    {
+      "id": 2,
+      "title": "Decorative Mirror",
+      "category": "mirrors",
+      "image": "/assets/images/gallery/mirror-1.jpg"
+    },
+    {
+      "id": 3,
+      "title": "Aluminium Window Installation",
+      "category": "aluminium",
+      "image": "/assets/images/gallery/aluminium-window.jpg"
+    },
+    {
+      "id": 4,
+      "title": "Residential Project",
+      "category": "projects",
+      "image": "/assets/images/gallery/residential-project.jpg"
+    },
+    {
+      "id": 5,
+      "title": "Home Decor Installation",
+      "category": "decor",
+      "image": "/assets/images/gallery/decor-1.jpg"
+    },
+    {
+      "id": 6,
+      "title": "Shower Cubicle",
+      "category": "glass",
+      "image": "/assets/images/gallery/shower-cubicle.jpg"
+    },
+    {
+      "id": 7,
+      "title": "Aluminium Sliding Door",
+      "category": "aluminium",
+      "image": "/assets/images/gallery/sliding-door.jpg"
+    },
+    {
+      "id": 8,
+      "title": "Commercial Project",
+      "category": "projects",
+      "image": "/assets/images/gallery/commercial-project.jpg"
+    },
+    {
+      "id": 9,
+      "title": "Wall Panel Installation",
+      "category": "decor",
+      "image": "/assets/images/gallery/wall-panel.jpg"
+    },
+    {
+      "id": 10,
+      "title": "Glass Balustrade",
+      "category": "glass",
+      "image": "/assets/images/gallery/balustrade.jpg"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "siteTitle": "HGALLERY - Quality Products. Expert Installations.",
+  "siteDescription": "Premium glass, aluminium, shower cubicles, wall panels, tools, and home decor in Nairobi, Kenya.",
+  "brandName": "HGALLERY",
+  "tagline": "Quality. Style. Solutions.",
+  "contact": {
+    "phone": "+254 726 335 283",
+    "email": "hgalleryltd@gmail.com",
+    "address": "Our Mall, Magadi Road, Nairobi, Kenya"
+  },
+  "hours": {
+    "weekday": "Mon - Sat: 8:00 AM - 6:00 PM",
+    "sunday": "Sunday: By Appointment"
+  },
+  "social": {
+    "facebook": "https://facebook.com/hgallery",
+    "instagram": "https://instagram.com/hgallery",
+    "twitter": "https://twitter.com/hgallery",
+    "youtube": "https://youtube.com/hgallery"
+  },
+  "seo": {
+    "ogImage": "/assets/images/og-image.jpg",
+    "twitterCard": "summary_large_image"
+  },
+  "currency": "KES",
+  "currencySymbol": "KSh",
+  "whatsapp": "254726335283"
+}

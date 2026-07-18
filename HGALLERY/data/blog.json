@@ -1,0 +1,59 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "title": "Choosing the Right Glass for Your Home",
+      "excerpt": "Learn about different types of glass and how to choose the perfect one for your home project...",
+      "content": "<p>When it comes to home improvement, glass plays a crucial role in both aesthetics and functionality.</p><h2>Types of Glass</h2><p>Tempered glass, laminated glass, and float glass each have unique properties...</p><h3>Safety Glass</h3><p>For areas prone to impact, safety glass is essential...</p>",
+      "image": "assets/images/blog/glass-guide.jpg",
+      "date": "January 15, 2026",
+      "author": "John Kariuki",
+      "category": "Glass",
+      "readTime": "5 min read"
+    },
+    {
+      "id": 2,
+      "title": "Aluminium Windows: A Complete Guide",
+      "excerpt": "Discover the benefits of aluminium windows and why they're perfect for Kenyan homes...",
+      "content": "<p>Aluminium windows offer durability, style, and energy efficiency...</p>",
+      "image": "assets/images/blog/aluminium-windows.jpg",
+      "date": "January 10, 2026",
+      "author": "Mary Wanjiru",
+      "category": "Aluminium",
+      "readTime": "4 min read"
+    },
+    {
+      "id": 3,
+      "title": "Transform Your Bathroom with Shower Cubicles",
+      "excerpt": "Modern shower cubicles can completely transform your bathroom experience...",
+      "content": "<p>A well-designed shower cubicle adds luxury and value to your home...</p>",
+      "image": "assets/images/blog/shower-cubicles.jpg",
+      "date": "January 5, 2026",
+      "author": "Peter Mwangi",
+      "category": "Bathroom",
+      "readTime": "3 min read"
+    },
+    {
+      "id": 4,
+      "title": "Top 10 Home Decor Trends for 2026",
+      "excerpt": "Stay ahead of the curve with these popular home decor trends...",
+      "content": "<p>From minimalist designs to bold colors, here are the top trends...</p>",
+      "image": "assets/images/blog/home-decor.jpg",
+      "date": "January 1, 2026",
+      "author": "Grace Muthoni",
+      "category": "Decor",
+      "readTime": "6 min read"
+    },
+    {
+      "id": 5,
+      "title": "Professional Installation: Why It Matters",
+      "excerpt": "Learn why professional installation is crucial for the longevity of your glass and aluminium products...",
+      "content": "<p>Poor installation can compromise safety and performance...</p>",
+      "image": "assets/images/blog/installation.jpg",
+      "date": "December 20, 2025",
+      "author": "James Ochieng",
+      "category": "Installation",
+      "readTime": "4 min read"
+    }
+  ]
+}

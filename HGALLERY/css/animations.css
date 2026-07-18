@@ -1,0 +1,311 @@
+/*=========================================
+ PREMIUM ANIMATIONS
+=========================================*/
+
+:root {
+  --animation-speed: 0.6s;
+  --animation-ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Fade Up */
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(50px);
+  transition:
+    opacity var(--animation-speed) var(--animation-ease),
+    transform var(--animation-speed) var(--animation-ease);
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fade Left */
+
+.fade-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: 0.7s;
+}
+
+.fade-left.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Fade Right */
+
+.fade-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: 0.7s;
+}
+
+.fade-right.show {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Zoom */
+
+.zoom {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: 0.7s;
+}
+
+.zoom.show {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Rotate */
+
+.rotate {
+  opacity: 0;
+  transform: rotate(-8deg);
+  transition: 0.7s;
+}
+
+.rotate.show {
+  opacity: 1;
+  transform: rotate(0);
+}
+
+/* Hero Image Floating */
+
+@keyframes heroFloat {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-18px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.hero-image img {
+  animation: heroFloat 6s ease-in-out infinite;
+}
+
+/* Floating Cards */
+
+@keyframes floatingCard {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.floating-card {
+  animation: floatingCard 5s ease-in-out infinite;
+}
+
+.card-two {
+  animation-delay: 0.6s;
+}
+
+.card-three {
+  animation-delay: 1.2s;
+}
+
+.card-four {
+  animation-delay: 1.8s;
+}
+
+/* Buttons */
+
+.btn {
+  transition:
+    transform 0.35s,
+    box-shadow 0.35s,
+    background 0.35s;
+}
+
+.btn:hover {
+  transform: translateY(-5px);
+}
+
+/* Product Cards */
+
+.product-card {
+  transition:
+    transform 0.4s,
+    box-shadow 0.4s;
+}
+
+.product-card:hover {
+  transform: translateY(-12px);
+}
+
+/* Category Cards */
+
+.category-card {
+  transition:
+    transform 0.35s,
+    box-shadow 0.35s;
+}
+
+.category-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Service Cards */
+
+.service-card {
+  transition: 0.35s;
+}
+
+.service-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Project Cards */
+
+.project-card {
+  overflow: hidden;
+}
+
+.project-card img {
+  transition: 0.6s;
+}
+
+.project-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Underline Animation */
+
+.nav-menu a {
+  position: relative;
+}
+
+.nav-menu a::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+
+  bottom: -8px;
+
+  width: 0;
+
+  height: 3px;
+
+  background: var(--primary);
+
+  transition: 0.35s;
+}
+
+.nav-menu a:hover::before,
+.nav-menu a.active::before {
+  width: 100%;
+}
+
+/* Ripple */
+
+@keyframes ripple {
+  from {
+    transform: scale(0.5);
+
+    opacity: 0.5;
+  }
+
+  to {
+    transform: scale(2);
+
+    opacity: 0;
+  }
+}
+
+.ripple {
+  position: relative;
+
+  overflow: hidden;
+}
+
+.ripple::after {
+  content: "";
+
+  position: absolute;
+
+  width: 20px;
+
+  height: 20px;
+
+  background: rgba(255, 255, 255, 0.35);
+
+  border-radius: 50%;
+
+  transform: scale(0);
+
+  pointer-events: none;
+}
+
+.ripple:active::after {
+  animation: ripple 0.6s linear;
+}
+
+/* Counter */
+
+.counter {
+  transition: 0.3s;
+}
+
+/* Smooth Page */
+
+body {
+  animation: pageFade 0.6s;
+}
+
+@keyframes pageFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Scroll Arrow */
+
+.back-to-top {
+  transition: 0.35s;
+}
+
+.back-to-top:hover {
+  transform: translateY(-6px);
+}
+
+/* Section Delay */
+
+.fade-delay-1 {
+  transition-delay: 0.15s;
+}
+
+.fade-delay-2 {
+  transition-delay: 0.3s;
+}
+
+.fade-delay-3 {
+  transition-delay: 0.45s;
+}
+
+.fade-delay-4 {
+  transition-delay: 0.6s;
+}

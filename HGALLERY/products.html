@@ -1,0 +1,502 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Products | HGALLERY LTD</title>
+
+    <meta
+      name="description"
+      content="Shop premium glass, aluminium, shower cubicles, mirrors, wall panels, tools, décor and camping equipment in Kenya."
+    />
+
+    <meta
+      name="keywords"
+      content="Glass Kenya, Aluminium Kenya, Shower Cubicles Nairobi, Mirrors Kenya, HGALLERY"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/products.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+  </head>
+
+  <body data-page="products">
+    <div id="header-placeholder"></div>
+
+    <main>
+      <!-- ===========================
+PAGE HERO
+============================ -->
+
+      <section class="page-hero">
+        <div class="hero-overlay"></div>
+
+        <div class="container">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a>
+
+            <span>/</span>
+
+            Products
+          </div>
+
+          <h1>Premium Products</h1>
+
+          <p>
+            Discover premium glass, aluminium, shower cubicles, mirrors, wall
+            panels, décor, kitchen accessories, power tools, hand tools and
+            camping gear.
+          </p>
+        </div>
+      </section>
+
+      <!-- ===========================
+PRODUCTS
+============================ -->
+
+      <section class="products-page">
+        <div class="container">
+          <div class="products-layout">
+            <!-- ===========================
+SIDEBAR
+============================ -->
+
+            <aside class="products-sidebar">
+              <div class="filter-card">
+                <h3>Search Products</h3>
+
+                <div class="search-box">
+                  <input type="text" id="searchInput" placeholder="Search..." />
+
+                  <i class="fas fa-search"></i>
+                </div>
+              </div>
+
+              <div class="filter-card">
+                <h3>Categories</h3>
+
+                <label>
+                  <input type="checkbox" value="Glass" />
+
+                  Glass
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Aluminium" />
+
+                  Aluminium
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Mirrors" />
+
+                  Mirrors
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Shower Cubicles" />
+
+                  Shower Cubicles
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Wall Panels" />
+
+                  Wall Panels
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Power Tools" />
+
+                  Power Tools
+                </label>
+
+                <label>
+                  <input type="checkbox" value="Camping" />
+
+                  Camping
+                </label>
+              </div>
+
+              <div class="filter-card">
+                <h3>Price Range</h3>
+
+                <input
+                  type="range"
+                  min="0"
+                  max="100000"
+                  value="50000"
+                  id="priceRange"
+                />
+
+                <div class="price-values">
+                  <span>KSh 0</span>
+
+                  <span id="priceValue"> 50,000 </span>
+                </div>
+              </div>
+
+              <div class="filter-card">
+                <h3>Brands</h3>
+
+                <label><input type="checkbox" /> HGALLERY</label>
+
+                <label><input type="checkbox" /> Makita</label>
+
+                <label><input type="checkbox" /> Bosch</label>
+
+                <label><input type="checkbox" /> Ingco</label>
+
+                <label><input type="checkbox" /> Stanley</label>
+
+                <label><input type="checkbox" /> Total</label>
+              </div>
+
+              <div class="filter-card">
+                <h3>Rating</h3>
+
+                <label>
+                  <input type="checkbox" />
+
+                  ★★★★★
+                </label>
+
+                <label>
+                  <input type="checkbox" />
+
+                  ★★★★☆
+                </label>
+
+                <label>
+                  <input type="checkbox" />
+
+                  ★★★☆☆
+                </label>
+              </div>
+            </aside>
+
+            <!-- ===========================
+CONTENT
+============================ -->
+
+            <div class="products-content">
+              <div class="products-toolbar">
+                <div>
+                  <h2>Our Catalogue</h2>
+
+                  <p>Showing premium products.</p>
+                </div>
+
+                <div class="toolbar-actions">
+                  <select id="sortProducts">
+                    <option value="featured">Featured</option>
+
+                    <option value="price-low">Price Low</option>
+
+                    <option value="price-high">Price High</option>
+
+                    <option value="name">Alphabetical</option>
+
+                    <option value="latest">Newest</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="products-grid" id="productsGrid">
+                <!-- Products generated by JavaScript -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ===========================
+QUICK VIEW MODAL
+============================ -->
+
+<div class="quick-view-modal" id="quickViewModal">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+
+        <button class="modal-close" id="closeModal">
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="modal-grid">
+
+            <div class="modal-image">
+
+                <img
+                    id="modalProductImage"
+                    src="assets/images/1.jpg"
+                    alt="Product">
+
+            </div>
+
+            <div class="modal-details">
+
+                <span class="modal-category"
+                    id="modalCategory">
+
+                    Category
+
+                </span>
+
+                <h2 id="modalTitle">
+
+                    Product Name
+
+                </h2>
+
+                <div class="modal-rating">
+
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+
+                    <span>(125 Reviews)</span>
+
+                </div>
+
+                <div
+                    class="modal-price"
+                    id="modalPrice">
+
+                    KSh 0
+
+                </div>
+
+                <p
+                    id="modalDescription">
+
+                    Product description...
+
+                </p>
+
+                <div class="stock">
+
+                    <i class="fas fa-check-circle"></i>
+
+                    In Stock
+
+                </div>
+
+                <div class="modal-buttons">
+
+                    <a
+                        id="modalDetails"
+                        href="#"
+                        class="btn btn-primary">
+
+                        View Details
+
+                    </a>
+
+                    <a
+                        id="modalWhatsapp"
+                        href="#"
+                        class="btn btn-outline">
+
+                        WhatsApp Quote
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===========================
+PAGINATION
+============================ -->
+
+<div class="pagination">
+
+    <button>
+
+        <i class="fas fa-angle-left"></i>
+
+    </button>
+
+    <button class="active">
+
+        1
+
+    </button>
+
+    <button>
+
+        2
+
+    </button>
+
+    <button>
+
+        3
+
+    </button>
+
+    <button>
+
+        4
+
+    </button>
+
+    <button>
+
+        <i class="fas fa-angle-right"></i>
+
+    </button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ===========================
+NEWSLETTER
+============================ -->
+
+<section class="newsletter">
+
+<div class="container">
+
+<div class="newsletter-box">
+
+<div>
+
+<span>
+
+Stay Updated
+
+</span>
+
+<h2>
+
+Subscribe To Our Newsletter
+
+</h2>
+
+<p>
+
+Receive updates on new arrivals,
+discounts and installation offers.
+
+</p>
+
+</div>
+
+<form class="newsletter-form">
+
+<input
+type="email"
+placeholder="Enter your email">
+
+<button
+type="submit"
+class="btn btn-primary">
+
+Subscribe
+
+</button>
+
+</form>
+
+</div>
+
+</div>
+
+</section>
+
+</main>
+
+<!-- ===========================
+FLOATING BUTTONS
+============================ -->
+
+<a
+href="https://wa.me/254726335283"
+class="floating-whatsapp"
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
+
+<button
+class="back-to-top">
+
+<i class="fas fa-chevron-up"></i>
+
+</button>
+
+<!-- ===========================
+FOOTER
+============================ -->
+
+<div id="footer-placeholder"></div>
+
+<!-- ===========================
+SCRIPTS
+============================ -->
+
+<script type="module">
+
+import { ComponentLoader } from "./js/components.js";
+import { Products } from "./js/products.js";
+import { Utils } from "./js/utils.js";
+
+document.addEventListener("DOMContentLoaded", async () => {
+
+    const loader = new ComponentLoader();
+    await loader.init();
+
+    const utils = new Utils();
+
+    const products = new Products();
+
+    await products.loadProducts();
+
+    products.renderAll("#productsGrid");
+
+});
+
+</script>
+
+</body>
+
+</html>
+
+

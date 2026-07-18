@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects - HGALLERY Portfolio</title>
+    <meta
+      name="description"
+      content="View our portfolio of glass, aluminium, and home improvement projects in Nairobi and across Kenya."
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      .projects-section {
+        padding: 3rem 0;
+      }
+      .projects-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 2rem;
+      }
+      .project-card {
+        background: var(--white);
+        border-radius: var(--radius-md);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition-base);
+        cursor: pointer;
+      }
+      .project-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-lg);
+      }
+      .project-card .project-image {
+        height: 240px;
+        overflow: hidden;
+      }
+      .project-card .project-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-slow);
+      }
+      .project-card:hover .project-image img {
+        transform: scale(1.05);
+      }
+      .project-card .project-body {
+        padding: 1.5rem;
+      }
+      .project-card .project-body .project-category {
+        font-size: 0.75rem;
+        color: var(--gray-400);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+      .project-card .project-body h4 {
+        font-size: 1.1rem;
+        margin: 0.3rem 0;
+      }
+      .project-card .project-body p {
+        color: var(--gray-500);
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+      .project-card .project-body .project-meta {
+        font-size: 0.85rem;
+        color: var(--gray-400);
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+      .project-filter {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        justify-content: center;
+        padding: 2rem 0;
+      }
+      .project-filter button {
+        padding: 0.5rem 1.5rem;
+        border: 2px solid var(--gray-200);
+        border-radius: var(--radius-full);
+        background: transparent;
+        font-weight: 600;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: var(--transition-fast);
+      }
+      .project-filter button:hover,
+      .project-filter button.active {
+        background: var(--primary);
+        color: var(--white);
+        border-color: var(--primary);
+      }
+      @media (max-width: 768px) {
+        .projects-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 480px) {
+        .projects-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="projects">
+    <!-- HEADER PLACEHOLDER -->
+    <div id="header-placeholder"></div>
+
+    <!-- MAIN CONTENT -->
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Our Projects</h1>
+          <p>Transforming spaces across Nairobi and beyond</p>
+        </div>
+      </section>
+
+      <section class="projects-section">
+        <div class="container">
+          <div class="project-filter" id="projectFilter">
+            <button class="active" data-filter="all">All</button>
+            <button data-filter="residential">Residential</button>
+            <button data-filter="commercial">Commercial</button>
+            <button data-filter="office">Office</button>
+            <button data-filter="hotel">Hotels</button>
+            <button data-filter="school">Schools</button>
+          </div>
+          <div class="projects-grid" id="projectsGrid">
+            <!-- Loaded dynamically from projects.json -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER PLACEHOLDER -->
+    <div id="footer-placeholder"></div>
+
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+
+        // Load projects
+        try {
+          const response = await fetch("/data/projects.json");
+          const data = await response.json();
+          const projects = data.projects || [];
+
+          const grid = document.getElementById("projectsGrid");
+          const filterBtns = document.querySelectorAll("#projectFilter button");
+          let currentFilter = "all";
+
+          function renderProjects(filter) {
+            const filtered =
+              filter === "all"
+                ? projects
+                : projects.filter((p) => p.category === filter);
+            grid.innerHTML = filtered
+              .map(
+                (p) => `
+            <div class="project-card">
+              <div class="project-image"><img src="${p.image || "/assets/images/placeholder.jpg"}" alt="${p.title}" loading="lazy"></div>
+              <div class="project-body">
+                <span class="project-category">${p.category}</span>
+                <h4>${p.title}</h4>
+                <p>${p.description || ""}</p>
+                <div class="project-meta">
+                  <span><i class="fas fa-map-marker-alt"></i> ${p.location || "Nairobi"}</span>
+                  <span><i class="far fa-calendar-alt"></i> ${p.year || "2024"}</span>
+                </div>
+              </div>
+            </div>
+          `,
+              )
+              .join("");
+          }
+
+          filterBtns.forEach((btn) => {
+            btn.addEventListener("click", () => {
+              filterBtns.forEach((b) => b.classList.remove("active"));
+              btn.classList.add("active");
+              currentFilter = btn.dataset.filter;
+              renderProjects(currentFilter);
+            });
+          });
+
+          renderProjects("all");
+        } catch (error) {
+          console.error("Error loading projects:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

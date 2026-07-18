@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog - HGALLERY</title>
+    <meta
+      name="description"
+      content="Read articles and tips about glass, aluminium, home decor, and installation from HGALLERY experts."
+    />
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+    <style>
+      .blog-section {
+        padding: 40px 0 80px;
+      }
+      .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+        gap: 30px;
+      }
+      .blog-card {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+      }
+      .blog-card:hover {
+        transform: translateY(-8px);
+        box-shadow: var(--shadow-lg);
+      }
+      .blog-card .image {
+        height: 220px;
+        overflow: hidden;
+      }
+      .blog-card .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: var(--transition-slow);
+      }
+      .blog-card:hover .image img {
+        transform: scale(1.05);
+      }
+      .blog-card .content {
+        padding: 24px;
+      }
+      .blog-card .content .meta {
+        display: flex;
+        gap: 16px;
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 12px;
+      }
+      .blog-card .content .meta i {
+        margin-right: 4px;
+      }
+      .blog-card .content h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+      }
+      .blog-card .content h3 a {
+        color: var(--text);
+        transition: var(--transition);
+      }
+      .blog-card .content h3 a:hover {
+        color: var(--primary);
+      }
+      .blog-card .content p {
+        color: var(--text-light);
+        margin-bottom: 16px;
+      }
+      .blog-card .content .read-more {
+        color: var(--primary);
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: var(--transition);
+      }
+      .blog-card .content .read-more:hover {
+        gap: 14px;
+      }
+      .blog-sidebar {
+        position: sticky;
+        top: 120px;
+        align-self: start;
+      }
+      .blog-sidebar .widget {
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: 24px;
+        margin-bottom: 24px;
+        box-shadow: var(--shadow-sm);
+      }
+      .blog-sidebar .widget h4 {
+        font-size: 18px;
+        margin-bottom: 16px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--primary);
+      }
+      .blog-sidebar .widget ul {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .blog-sidebar .widget ul a {
+        color: var(--text-light);
+        transition: var(--transition);
+        display: flex;
+        justify-content: space-between;
+      }
+      .blog-sidebar .widget ul a:hover {
+        color: var(--primary);
+        padding-left: 8px;
+      }
+      @media (max-width: 992px) {
+        .blog-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 768px) {
+        .blog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body data-page="blog">
+    <div id="header-placeholder"></div>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <h1>Our Blog</h1>
+          <p>Tips, insights, and inspiration for your home projects</p>
+        </div>
+      </section>
+
+      <section class="blog-section">
+        <div class="container">
+          <div class="blog-grid" id="blogGrid">
+            <!-- Dynamic content -->
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <div id="footer-placeholder"></div>
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script type="module">
+      import { ComponentLoader } from "./js/components.js";
+      import { Utils } from "./js/utils.js";
+
+      document.addEventListener("DOMContentLoaded", async () => {
+        const loader = new ComponentLoader();
+        await loader.init();
+        new Utils();
+
+        try {
+          const response = await fetch("/data/blog.json");
+          const data = await response.json();
+          const posts = data.posts || [];
+
+          const grid = document.getElementById("blogGrid");
+          grid.innerHTML = posts
+            .map(
+              (post) => `
+          <div class="blog-card fade-up">
+            <div class="image"><img src="${post.image || "assets/images/blog-placeholder.jpg"}" alt="${post.title}" loading="lazy" /></div>
+            <div class="content">
+              <div class="meta"><span><i class="far fa-calendar-alt"></i> ${post.date || "Jan 2026"}</span><span><i class="far fa-user"></i> ${post.author || "HGALLERY"}</span></div>
+              <h3><a href="blog-post.html?id=${post.id}">${post.title}</a></h3>
+              <p>${post.excerpt || "Read more about this topic..."}</p>
+              <a href="blog-post.html?id=${post.id}" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+            </div>
+          </div>
+        `,
+            )
+            .join("");
+        } catch (error) {
+          console.error("Error loading blog:", error);
+        }
+      });
+    </script>
+  </body>
+</html>

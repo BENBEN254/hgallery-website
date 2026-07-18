@@ -1,0 +1,178 @@
+/* ==========================================================
+   HGALLERY LTD
+   Premium Design System
+   Version 2.0
+========================================================== */
+
+:root {
+  /*==========================================================
+COLORS
+==========================================================*/
+
+  /* Primary Brand */
+  --primary: #8b1e22;
+  --primary-hover: #73181c;
+  --primary-light: #b42b30;
+  --primary-transparent: rgba(139, 30, 34, 0.08);
+
+  /* Browns */
+  --brown: #5a433d;
+  --brown-dark: #43312d;
+  --brown-light: #7b635b;
+
+  /* Backgrounds */
+  --bg: #fafafa;
+  --bg-alt: #f6f3f1;
+  --bg-section: #f2eeeb;
+  --white: #ffffff;
+
+  /* Text */
+  --text: #2e2e2e;
+  --text-light: #666666;
+  --text-muted: #8d8d8d;
+
+  /* Borders */
+  --border: #e8e2dd;
+  --border-light: #f2f2f2;
+
+  /* Status */
+  --success: #2e7d32;
+  --warning: #f9a825;
+  --danger: #c62828;
+  --info: #0288d1;
+
+  /*==========================================================
+GRADIENTS
+==========================================================*/
+
+  --gradient-primary: linear-gradient(
+    135deg,
+    #8b1e22 0%,
+    #7b1c20 45%,
+    #5a433d 100%
+  );
+
+  --gradient-dark: linear-gradient(90deg, #46342f, #5a433d);
+
+  --gradient-light: linear-gradient(180deg, #ffffff, #f8f5f2);
+
+  --gradient-overlay: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.55));
+
+  /*==========================================================
+TYPOGRAPHY
+==========================================================*/
+
+  --font-primary: "Poppins", sans-serif;
+  --font-secondary: "Inter", sans-serif;
+
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.8rem;
+  --fs-4xl: 3.6rem;
+
+  --fw-light: 300;
+  --fw-normal: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extrabold: 800;
+
+  /*==========================================================
+SPACING
+==========================================================*/
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+  --space-10: 64px;
+  --space-11: 80px;
+  --space-12: 100px;
+
+  /*==========================================================
+CONTAINER
+==========================================================*/
+
+  --container-width: 1400px;
+  --container-padding: 20px;
+
+  /*==========================================================
+BORDER RADIUS
+==========================================================*/
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-round: 999px;
+
+  /*==========================================================
+SHADOWS
+==========================================================*/
+
+  --shadow-xs: 0 2px 6px rgba(0, 0, 0, 0.04);
+
+  --shadow-sm: 0 5px 12px rgba(0, 0, 0, 0.06);
+
+  --shadow-md: 0 12px 28px rgba(0, 0, 0, 0.08);
+
+  --shadow-lg: 0 18px 45px rgba(0, 0, 0, 0.12);
+
+  --shadow-xl: 0 30px 70px rgba(0, 0, 0, 0.18);
+
+  /*==========================================================
+TRANSITIONS
+==========================================================*/
+
+  --transition-fast: 0.2s ease;
+  --transition: 0.35s ease;
+  --transition-slow: 0.55s ease;
+
+  /*==========================================================
+HEADER
+==========================================================*/
+
+  --topbar-height: 42px;
+  --navbar-height: 88px;
+
+  /*==========================================================
+BUTTONS
+==========================================================*/
+
+  --btn-height: 54px;
+  --btn-radius: 8px;
+
+  /*==========================================================
+CARDS
+==========================================================*/
+
+  --card-radius: 16px;
+  --card-padding: 24px;
+
+  /*==========================================================
+Z INDEX
+==========================================================*/
+
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-fixed: 800;
+  --z-modal: 1000;
+
+  /*==========================================================
+SECTION SPACING
+==========================================================*/
+
+  --section-padding: 90px;
+  --section-gap: 60px;
+}

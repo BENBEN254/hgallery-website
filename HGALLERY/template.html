@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page Title - HGALLERY</title>
+  <meta name="description" content="Page description">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/global.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* Page-specific styles */
+  </style>
+</head>
+<body data-page="pagename">
+  <!-- HEADER PLACEHOLDER -->
+  <div id="header-placeholder"></div>
+
+  <!-- MAIN CONTENT -->
+  <main>
+    <!-- Page content here -->
+    
+    <!-- Example: Using sidebar on product page -->
+    <div class="container">
+      <div class="content-with-sidebar">
+        <div class="main-content">
+          <!-- Main page content -->
+        </div>
+        <!-- SIDEBAR PLACEHOLDER -->
+        <div id="sidebar-placeholder"></div>
+      </div>
+    </div>
+  </main>
+
+  <!-- NEWSLETTER PLACEHOLDER -->
+  <div id="newsletter-placeholder"></div>
+
+  <!-- FOOTER PLACEHOLDER -->
+  <div id="footer-placeholder"></div>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" aria-label="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+  <script type="module">
+    import { ComponentLoader } from './js/components.js';
+    import { Utils } from './js/utils.js';
+    
+    document.addEventListener('DOMContentLoaded', async () => {
+      const loader = new ComponentLoader();
+      await loader.init();
+      new Utils();
+    });
+  </script>
+</body>
+</html>

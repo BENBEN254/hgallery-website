@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "James Mwangi",
+    "position": "Homeowner",
+    "company": "",
+    "image": "assets/images/testimonials/client-1.jpg",
+    "rating": 5,
+    "review": "HGALLERY exceeded our expectations. The frameless shower cubicle was installed perfectly, and the workmanship was outstanding."
+  },
+  {
+    "id": 2,
+    "name": "Grace Wanjiru",
+    "position": "Interior Designer",
+    "company": "GW Interiors",
+    "image": "assets/images/testimonials/client-2.jpg",
+    "rating": 5,
+    "review": "The quality of their mirrors, aluminium products and wall panels is exceptional. They are now my preferred supplier."
+  },
+  {
+    "id": 3,
+    "name": "David Ochieng",
+    "position": "Project Manager",
+    "company": "BuildTech Ltd",
+    "image": "assets/images/testimonials/client-3.jpg",
+    "rating": 5,
+    "review": "Professional from quotation to installation. They completed our office glass partitions ahead of schedule."
+  },
+  {
+    "id": 4,
+    "name": "Sarah Njeri",
+    "position": "Business Owner",
+    "company": "",
+    "image": "assets/images/testimonials/client-4.jpg",
+    "rating": 5,
+    "review": "Excellent customer service, competitive pricing and premium products. I highly recommend HGALLERY."
+  },
+  {
+    "id": 5,
+    "name": "Peter Mutiso",
+    "position": "Architect",
+    "company": "PM Designs",
+    "image": "assets/images/testimonials/client-5.jpg",
+    "rating": 5,
+    "review": "The aluminium fabrication was precise, modern and delivered exactly as specified. A reliable partner for architectural projects."
+  },
+  {
+    "id": 6,
+    "name": "Mercy Atieno",
+    "position": "Property Developer",
+    "company": "Urban Homes",
+    "image": "assets/images/testimonials/client-6.jpg",
+    "rating": 5,
+    "review": "HGALLERY handled multiple installations for our apartments. Their professionalism and quality have been consistent on every project."
+  }
+]

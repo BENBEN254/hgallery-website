@@ -1,0 +1,402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- ==========================================================
+  PRIMARY SEO TAGS
+  ========================================================== -->
+    <title>
+      Shop - HGALLERY LTD | Premium Glass, Aluminium & Home Improvement Products
+    </title>
+
+    <meta
+      name="description"
+      content="Shop premium glass, aluminium, shower cubicles, wall panels, mirrors, power tools, hand tools, home decor and camping gear at HGALLERY. Quality products with professional installation."
+    />
+
+    <meta
+      name="keywords"
+      content="shop glass Kenya, buy aluminium Nairobi, shower cubicles for sale, power tools Kenya, home decor Nairobi, HGALLERY shop, premium building materials"
+    />
+
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://hgallery.co.ke/shop.html" />
+
+    <!-- ==========================================================
+  OPEN GRAPH / SOCIAL MEDIA
+  ========================================================== -->
+    <meta
+      property="og:title"
+      content="Shop HGALLERY - Premium Glass, Aluminium & Home Improvement"
+    />
+    <meta
+      property="og:description"
+      content="Shop premium quality glass, aluminium, shower cubicles, power tools, hand tools, home decor and more. Professional installation available."
+    />
+    <meta
+      property="og:image"
+      content="https://hgallery.co.ke/assets/images/og-shop.jpg"
+    />
+    <meta property="og:url" content="https://hgallery.co.ke/shop.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="HGALLERY LTD" />
+
+    <!-- ==========================================================
+  TWITTER CARDS
+  ========================================================== -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Shop HGALLERY - Premium Building Materials"
+    />
+    <meta
+      name="twitter:description"
+      content="Shop premium glass, aluminium, tools, and home decor products in Kenya."
+    />
+
+    <!-- ==========================================================
+  SCHEMA / STRUCTURED DATA
+  ========================================================== -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "name": "HGALLERY Shop",
+        "description": "Shop premium glass, aluminium, shower cubicles, mirrors, wall panels, power tools, hand tools, home decor, DIY products and camping gear.",
+        "url": "https://hgallery.co.ke/shop.html",
+        "isPartOf": {
+          "@type": "WebSite",
+          "name": "HGALLERY LTD"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Building Materials & Home Improvement Products"
+        }
+      }
+    </script>
+
+    <!-- ==========================================================
+  STYLESHEETS
+  ========================================================== -->
+    <link rel="stylesheet" href="css/variables.css" />
+    <link rel="stylesheet" href="css/global.css" />
+    <link rel="stylesheet" href="css/layout.css" />
+    <link rel="stylesheet" href="css/shop.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+    />
+  </head>
+
+  <body data-page="shop">
+    <!-- ==========================================================
+  HEADER PLACEHOLDER
+  ========================================================== -->
+    <div id="header-placeholder"></div>
+
+    <!-- ==========================================================
+  MAIN CONTENT
+  ========================================================== -->
+    <main>
+      <!-- ==========================================================
+    PAGE HERO / BANNER
+    ========================================================== -->
+      <section class="shop-hero">
+        <div class="container">
+          <div class="shop-hero-content">
+            <span class="hero-badge">🛍️ Shop Now</span>
+            <h1>Premium Products <span>for Your Home</span></h1>
+            <p>
+              Discover our curated collection of premium glass, aluminium,
+              shower cubicles, wall panels, mirrors, power tools, hand tools,
+              home decor, DIY products, and camping gear.
+            </p>
+            <div class="hero-search">
+              <input
+                type="text"
+                id="shopSearch"
+                placeholder="Search products..."
+              />
+              <button id="searchBtn">
+                <i class="fas fa-search"></i> Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+    SHOP SECTION
+    ========================================================== -->
+      <section class="shop-section" aria-labelledby="shop-title">
+        <div class="container">
+          <div class="shop-layout">
+            <!-- ==========================================
+          SIDEBAR - FILTERS
+          ========================================== -->
+            <aside class="shop-sidebar" aria-label="Product filters">
+              <!-- Categories Filter -->
+              <div class="filter-card">
+                <h3><i class="fas fa-tags"></i> Categories</h3>
+                <ul class="filter-categories" id="categoryFilters">
+                  <li>
+                    <a href="#" data-category="all" class="active"
+                      >All Products</a
+                    >
+                  </li>
+                  <li><a href="#" data-category="glass">Glass</a></li>
+                  <li><a href="#" data-category="aluminium">Aluminium</a></li>
+                  <li>
+                    <a href="#" data-category="shower">Shower Cubicles</a>
+                  </li>
+                  <li><a href="#" data-category="wall">Wall Panels</a></li>
+                  <li><a href="#" data-category="frames">Picture Frames</a></li>
+                  <li><a href="#" data-category="decor">Home Decor</a></li>
+                  <li><a href="#" data-category="diy">DIY Products</a></li>
+                  <li>
+                    <a href="#" data-category="power-tools">Power Tools</a>
+                  </li>
+                  <li><a href="#" data-category="hand-tools">Hand Tools</a></li>
+                  <li><a href="#" data-category="camping">Camping Gear</a></li>
+                </ul>
+              </div>
+
+              <!-- Price Range Filter -->
+              <div class="filter-card">
+                <h3><i class="fas fa-sliders-h"></i> Price Range</h3>
+                <div class="price-filter">
+                  <div class="price-inputs">
+                    <input
+                      type="number"
+                      id="minPrice"
+                      placeholder="Min"
+                      min="0"
+                    />
+                    <span>to</span>
+                    <input
+                      type="number"
+                      id="maxPrice"
+                      placeholder="Max"
+                      min="0"
+                    />
+                  </div>
+                  <button class="btn btn-primary btn-sm" id="priceFilterBtn">
+                    Apply Price
+                  </button>
+                </div>
+              </div>
+
+              <!-- Rating Filter -->
+              <div class="filter-card">
+                <h3><i class="fas fa-star"></i> Rating</h3>
+                <ul class="filter-rating">
+                  <li><a href="#" data-rating="5">★★★★★ (5)</a></li>
+                  <li><a href="#" data-rating="4">★★★★☆ (4+)</a></li>
+                  <li><a href="#" data-rating="3">★★★☆☆ (3+)</a></li>
+                  <li><a href="#" data-rating="2">★★☆☆☆ (2+)</a></li>
+                  <li><a href="#" data-rating="1">★☆☆☆☆ (1+)</a></li>
+                </ul>
+              </div>
+
+              <!-- Availability -->
+              <div class="filter-card">
+                <h3><i class="fas fa-check-circle"></i> Availability</h3>
+                <label class="filter-checkbox">
+                  <input type="checkbox" id="inStockFilter" checked />
+                  <span>In Stock Only</span>
+                </label>
+              </div>
+
+              <!-- Clear Filters -->
+              <button class="btn btn-outline btn-block" id="clearFilters">
+                <i class="fas fa-undo"></i> Clear All Filters
+              </button>
+            </aside>
+
+            <!-- ==========================================
+          PRODUCTS GRID
+          ========================================== -->
+            <div class="shop-content">
+              <!-- Toolbar -->
+              <div class="shop-toolbar">
+                <div class="toolbar-left">
+                  <h2 id="shop-title">All Products</h2>
+                  <span id="productCount">0 products</span>
+                </div>
+                <div class="toolbar-right">
+                  <select id="sortProducts">
+                    <option value="featured">Sort by: Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                    <option value="rating">Highest Rated</option>
+                    <option value="newest">Newest First</option>
+                  </select>
+                  <div class="view-toggle">
+                    <button
+                      class="active"
+                      data-view="grid"
+                      aria-label="Grid view"
+                    >
+                      <i class="fas fa-th"></i>
+                    </button>
+                    <button data-view="list" aria-label="List view">
+                      <i class="fas fa-list"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Products Grid -->
+              <div class="products-grid" id="productsGrid">
+                <!-- Products loaded dynamically -->
+              </div>
+
+              <!-- Pagination -->
+              <div class="pagination" id="pagination">
+                <button class="prev" id="prevPage">
+                  <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="page-numbers" id="pageNumbers"></div>
+                <button class="next" id="nextPage">
+                  <i class="fas fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+    FEATURES / BENEFITS STRIP
+    ========================================================== -->
+      <section class="shop-features">
+        <div class="container">
+          <div class="features-grid">
+            <div class="feature-item">
+              <i class="fas fa-truck"></i>
+              <h4>Nationwide Delivery</h4>
+              <p>Fast and reliable delivery across Kenya</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-shield-alt"></i>
+              <h4>Quality Guarantee</h4>
+              <p>Premium products with warranty</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-credit-card"></i>
+              <h4>Secure Payments</h4>
+              <p>Multiple payment options available</p>
+            </div>
+            <div class="feature-item">
+              <i class="fas fa-headset"></i>
+              <h4>24/7 Support</h4>
+              <p>Dedicated customer service team</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==========================================================
+    NEWSLETTER
+    ========================================================== -->
+      <section class="shop-newsletter">
+        <div class="container">
+          <div class="newsletter-box">
+            <div>
+              <span>Stay Updated</span>
+              <h2>Subscribe to Our Newsletter</h2>
+              <p>
+                Get updates on new arrivals, special offers, and exclusive
+                discounts.
+              </p>
+            </div>
+            <form class="newsletter-form" id="newsletterForm">
+              <input type="email" placeholder="Enter your email" required />
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- ==========================================================
+  FOOTER PLACEHOLDER
+  ========================================================== -->
+    <div id="footer-placeholder"></div>
+
+    <!-- ==========================================================
+  BACK TO TOP
+  ========================================================== -->
+    <button class="back-to-top" aria-label="Back to top">
+      <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ==========================================================
+  JAVASCRIPT
+  ========================================================== -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Load header/footer
+        fetch("/components/header.html")
+          .then((r) => r.text())
+          .then(
+            (html) =>
+              (document.getElementById("header-placeholder").innerHTML = html),
+          );
+
+        fetch("/components/footer.html")
+          .then((r) => r.text())
+          .then(
+            (html) =>
+              (document.getElementById("footer-placeholder").innerHTML = html),
+          );
+
+        // Load products
+        fetch("/data/products.json")
+          .then((response) => response.json())
+          .then((data) => {
+            const products = data.products || [];
+            const grid = document.getElementById("productsGrid");
+
+            grid.innerHTML = products
+              .map(
+                (product) => `
+          <div class="product-card">
+            <div class="product-image">
+              <img src="${product.image || "assets/images/placeholder.jpg"}" alt="${product.name}" loading="lazy" />
+              ${product.sale ? '<span class="badge sale">Sale</span>' : ""}
+              ${product.new ? '<span class="badge new">New</span>' : ""}
+            </div>
+            <div class="product-info">
+              <span class="product-category">${product.categoryName || product.category}</span>
+              <h4><a href="product-details.html?id=${product.id}">${product.name}</a></h4>
+              <div class="product-price">
+                <span class="current">KSh ${product.price.toLocaleString()}</span>
+                ${product.oldPrice ? `<span class="old">KSh ${product.oldPrice.toLocaleString()}</span>` : ""}
+              </div>
+              <a href="product-details.html?id=${product.id}" class="btn btn-primary btn-sm">View Details</a>
+            </div>
+          </div>
+        `,
+              )
+              .join("");
+          })
+          .catch((error) => {
+            console.error("Error loading products:", error);
+            document.getElementById("productsGrid").innerHTML = `
+          <div class="error-state">
+            <i class="fas fa-exclamation-circle"></i>
+            <h3>Failed to load products</h3>
+            <p>Please refresh the page or try again later.</p>
+          </div>
+        `;
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+# robots.txt for HGALLERY LTD
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /product-upload.html
+Disallow: /cart.html
+Disallow: /checkout.html
+Disallow: /wishlist.html
+Disallow: /search.html?*
+Disallow: /products.html?*
+
+Sitemap: https://hgallery.co.ke/sitemap.xml
