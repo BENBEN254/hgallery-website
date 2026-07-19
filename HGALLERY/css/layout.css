@@ -1,451 +1,296 @@
-/*==========================================================
- HGALLERY LTD
- SENIOR DEV REFACTOR - BRAND COLOR MATCH ENGINE
-==========================================================*/
-
 /* ==========================================================
-   1. FIXED LAYOUT FRAMEWORK CONTAINER MATRIX
+   HGALLERY LTD - REWRITTEN LUXURY SHOP INTERFACE STYLES
    ========================================================== */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
-}
 
-/* ==========================================================
-   2. TOP BAR RECEPTACLE (BURGUNDY RED BRAND ENGINE)
-   ========================================================== */
+/* 1. Top Bar Elements Row Specs */
 .top-bar {
   width: 100%;
-  height: 46px;
-  background: #8b1e22 !important; /* Your signature rich red */
+  height: 40px;
+  background: #8b1e22 !important; /* Premium brand red remains dominant text token */
   color: #ffffff;
   display: flex;
   align-items: center;
-  font-size: 13.5px;
-  font-weight: 500;
-  position: relative;
-  z-index: 1050;
-  box-sizing: border-box;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 13px;
+  font-weight: 400;
 }
-
-.top-bar .container {
+.top-bar-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
 }
-
 .top-left,
 .top-right {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 24px;
 }
-
 .top-bar-item {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
-
 .top-bar-item i {
   color: #ffffff;
-  font-size: 14px;
+  opacity: 0.9;
 }
-
-.top-bar-item a {
-  color: #ffffff;
-  text-decoration: none;
-  transition: opacity 0.2s ease;
-}
-
-.top-bar-item a:hover {
-  opacity: 0.8;
-}
-
+.top-bar-item a,
 .top-right a {
   color: #ffffff;
   text-decoration: none;
-  font-size: 15px;
-  transition: transform 0.2s ease;
+}
+.top-social-links {
+  display: flex;
+  gap: 12px;
+  margin-left: 8px;
+}
+.top-social-links a {
+  color: #ffffff;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+.top-social-links a:hover {
+  opacity: 1;
 }
 
-.top-right a:hover {
-  transform: translateY(-2px);
-}
-
-/* ==========================================================
-   3. STICKY NAVBAR (PREMIUM BRAND CHOCOLATE-CHARCOAL MATCH)
-   ========================================================== */
-header,
-.main-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: #2b2523 !important; /* 👈 EXACTLY matches your preferred rich chocolate-charcoal color */
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+/* 2. Middle Row Engine Structure Layout */
+.middle-header {
+  background: #ffffff !important;
+  padding: 16px 0;
+  border-bottom: 1px solid #eeeeee;
   width: 100%;
-  box-sizing: border-box;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
-
-header.scrolled-down,
-.main-header.scrolled-down {
-  transform: translateY(-100%);
-}
-
-header.scrolled-up,
-.main-header.scrolled-up {
-  transform: translateY(0);
-}
-
-.navbar {
-  height: 104px; /* Keeps your crisp, spacious header height intact */
+.middle-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  box-sizing: border-box;
+  gap: 24px;
 }
 
-/* ==========================================================
-   4. BRAND LOGO COMPONENT
-   ========================================================== */
-.logo {
+/* Elite Search Box Configuration */
+.header-search-form {
   display: flex;
   align-items: center;
-  flex-shrink: 0;
-  text-decoration: none;
-}
-
-.logo img {
-  height: 58px;
-  width: auto;
-  object-fit: contain;
-}
-
-/* ==========================================================
-   5. NAVIGATION NAV PIECE LINKS (CLEAN HIGH-CONTRAST WHITE)
-   ========================================================== */
-.main-nav {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.nav-menu {
-  display: flex;
-  align-items: center;
-  gap: 36px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-.nav-menu > li {
+  flex: 1;
+  max-width: 550px;
+  height: 44px;
+  border: 2px solid #8b1e22; /* Search bar border aligns with red brand color */
+  border-radius: 4px;
+  overflow: hidden;
   position: relative;
+}
+.header-search-form input {
+  flex: 1;
+  height: 100%;
+  border: none;
+  padding: 0 16px;
+  font-size: 14px;
+  outline: none;
+  color: #333333;
+}
+.search-category-select {
+  position: relative;
+  height: 100%;
   display: flex;
   align-items: center;
+  background: #f7f7f7;
+  border-left: 1px solid #dddddd;
+  padding: 0 28px 0 16px;
+}
+.search-category-select select {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: #555555;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+}
+.search-category-select i {
+  position: absolute;
+  right: 12px;
+  font-size: 11px;
+  color: #777777;
+  pointer-events: none;
+}
+.header-search-form button {
+  width: 52px;
   height: 100%;
+  background: #8b1e22;
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.2s;
+}
+.header-search-form button:hover {
+  background: #721619;
 }
 
+/* Dynamic Inline Trust Badges Row */
+.header-trust-badges {
+  display: flex;
+  gap: 24px;
+}
+.badge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.badge-icon i {
+  font-size: 24px;
+  color: #8b1e22;
+}
+.badge-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+.badge-text strong {
+  font-size: 13.5px;
+  color: #2b2523;
+  font-weight: 700;
+}
+.badge-text span {
+  font-size: 11.5px;
+  color: #777777;
+}
+
+/* Custom Action Toolbars Buttons */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.nav-icon-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-decoration: none;
+  color: #2b2523;
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-icon-link i {
+  font-size: 20px;
+  color: #2b2523;
+}
+.nav-icon-link:hover,
+.nav-icon-link:hover i {
+  color: #8b1e22;
+}
+.icon-badge-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.icon-badge-wrapper .count {
+  position: absolute;
+  top: -6px;
+  right: -8px;
+  background: #8b1e22;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 3. Lower Main Navigation Bar Row (Deep Maroon Theme Matrix) */
+.main-header {
+  background: #532121 !important; /* Premium matching rich dark maroon strip backdrop */
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+.navbar-bottom-row {
+  height: 52px;
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  width: 100% !important;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Menu Launcher Button Left Panel */
+.browse-categories-btn {
+  background: #721619; 
+  color: #ffffff;
+  border: none;
+  height: 52px;
+  padding: 0 24px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.browse-categories-btn:hover {
+  background: #daa5a5;
+}
+
+.main-nav {
+  display: flex !important;
+  align-items: center !important;
+  flex-grow: 1 !important; /* Forces the nav to occupy the remaining layout width */
+  justify-content: flex-end !important; /* Pushes the menu items neatly into a balanced position */
+  padding-left: 40px !important; /* Creates a clean margin block away from the categories box */
+}
+/* Text Links Configurations */
+.nav-menu {
+  display: flex !important;
+  align-items: center !important;
+  gap: 34px !important; /* Adds clear horizontal separation space between distinct links */
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 .nav-menu a {
-  color: rgba(
-    255,
-    255,
-    255,
-    0.95
-  ) !important; /* Crisp white for excellent readability over the charcoal */
+  color: #ffffff !important;
   font-weight: 600;
-  font-size: 14.5px;
-  letter-spacing: 0.3px;
+  font-size: 13.5px;
+  letter-spacing: 0.5px;
+  padding: 16px 20px;
   text-decoration: none;
   display: flex;
   align-items: center;
   gap: 6px;
-  height: 100%;
-  transition: color 0.25s ease;
+  transition: background 0.2s;
 }
-
 .nav-menu a:hover,
 .nav-menu a.active {
-  color: var(
-    --primary,
-    #c9974c
-  ) !important; /* Highlights active links in premium gold */
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff !important;
 }
 
-/* Precision line markers for hover/active navigation links */
-.nav-menu > li > a.active::after,
-.nav-menu > li > a:hover::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 3px;
-  border-radius: 4px 4px 0 0;
-  background: var(--primary, #c9974c);
+/* Responsive elements overrides */
+@media (max-width: 992px) {
+  .header-trust-badges,
+  .main-nav {
+    display: none !important;
+  }
+  .menu-toggle {
+    display: flex;
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 22px;
+    cursor: pointer;
+  }
 }
 
-/* ==========================================================
-   6. NESTED DROPDOWN SYSTEM
-   ========================================================== */
-.dropdown-menu,
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%) translateY(12px);
-  min-width: 240px;
-  background: #2b2523 !important; /* Matches your core chocolate charcoal color */
-  border-radius: 8px;
-  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  padding: 12px 0;
-  list-style: none;
-  margin: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.dropdown-menu li,
-.dropdown li {
-  width: 100%;
-}
-
-.dropdown-menu li a,
-.dropdown a {
-  display: block;
-  padding: 12px 24px;
-  color: rgba(255, 255, 255, 0.9) !important;
-  font-size: 14px;
-  font-weight: 500;
-  height: auto;
-  text-decoration: none;
-  transition: all 0.2s ease;
-}
-
-.dropdown-menu li a:hover,
-.dropdown a:hover {
-  background: rgba(255, 255, 255, 0.04);
-  color: var(--primary, #c9974c) !important;
-  padding-left: 28px;
-}
-
-.dropdown:hover .dropdown-menu,
-.nav-menu li:hover .dropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateX(-50%) translateY(0);
-}
-
-/* ==========================================================
-   7. NAVIGATION ACTIONS WRAPPERS
-   ========================================================== */
-.nav-actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  height: 100%;
-}
-
-.search-btn,
-.nav-icon {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.06);
-  border: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #ffffff;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.25s ease;
-  position: relative;
-  text-decoration: none;
-}
-
-.search-btn:hover,
-.nav-icon:hover {
-  background: #8b1e22;
-  color: #ffffff;
-  transform: translateY(-2px);
-}
-
-.btn-sm {
-  padding: 12px 24px;
-  font-size: 14px;
-  border-radius: 6px;
-  text-decoration: none;
-  font-weight: 600;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  letter-spacing: 0.2px;
-  transition: all 0.25s ease;
-}
-
-.btn-primary {
-  background: #8b1e22;
-  color: #ffffff;
-}
-
-.btn-primary:hover {
-  background: #721619;
-  box-shadow: 0 6px 20px rgba(139, 30, 34, 0.4);
-  transform: translateY(-2px);
-}
-
-/* ==========================================================
-   8. COMPACT HARDWARE ACCELERATED MOBILE SIDE PANEL
-   ========================================================== */
-.menu-toggle {
-  display: none;
-  width: 44px;
-  height: 44px;
-  border-radius: 8px;
-  background: #8b1e22;
-  color: #ffffff;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  cursor: pointer;
-}
-
-.mobile-nav-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  z-index: 2000;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease;
-}
-
-.mobile-nav-overlay.active {
-  opacity: 1;
-  visibility: visible;
-}
-
-.mobile-nav-container {
-  position: absolute;
-  top: 0;
-  right: -300px;
-  width: 100%;
-  max-width: 300px;
-  height: 100%;
-  background: #ffffff;
-  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.15);
-  display: flex;
-  flex-direction: column;
-  padding: 24px;
-  transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.mobile-nav-overlay.active .mobile-nav-container {
-  right: 0;
-}
-
-.mobile-nav-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eeeeee;
-}
-
-.mobile-nav-close {
-  background: none;
-  border: none;
-  font-size: 22px;
-  color: #2b2523;
-  cursor: pointer;
-}
-
-.mobile-nav {
-  flex: 1;
-  overflow-y: auto;
-  padding: 20px 0;
-}
-
-.mobile-nav-menu {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.mobile-nav-menu a {
-  color: #2b2523;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: 600;
-  display: block;
-  padding: 8px 0;
-}
-
-.mobile-dropdown-menu {
-  list-style: none;
-  padding-left: 15px;
-  margin-top: 8px;
-  display: none;
-  flex-direction: column;
-  gap: 8px;
-  border-left: 2px solid #eeeeee;
-}
-
-.mobile-dropdown.open .mobile-dropdown-menu {
-  display: flex;
-}
-
-.mobile-dropdown-toggle {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-/* ==========================================================
-   9. BREADCRUMBS & BANNER HEADER TILES
-   ========================================================== */
-.page-header {
-  background: linear-gradient(135deg, #8b1e22, #4b3d39);
-  color: #ffffff;
-  padding: 96px 0;
-  text-align: center;
-}
-
-.page-header h1 {
-  color: #ffffff;
-  margin-bottom: 12px;
-}
-
-.breadcrumb {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  font-size: 15px;
-}
-
-.breadcrumb a {
-  color: #ffffff;
-  text-decoration: none;
-}
 /* ==========================================================
    10. PREMIUM 4-COLUMN FOOTER SYSTEM
  /* ==========================================================

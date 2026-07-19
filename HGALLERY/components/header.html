@@ -1,174 +1,139 @@
 <!-- ==========================================================
-   TOP BAR
+   TOP BAR (Crimson Red Brand Engine)
    ========================================================== -->
-
 <div class="top-bar" role="banner" aria-label="Top bar">
   <div class="container top-bar-content">
     <div class="top-left">
-      <span class="top-bar-item">
-        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-        <span>Our Mall, Magadi Road, Nairobi</span>
-      </span>
-
-      <span class="top-bar-item">
-        <i class="fas fa-phone" aria-hidden="true"></i>
-        <a href="tel:+254726335283" aria-label="Call us at +254 726 335 283">
-          +254 726 335 283
-        </a>
-      </span>
-
-      <span class="top-bar-item">
-        <i class="fas fa-envelope" aria-hidden="true"></i>
-        <a
-          href="mailto:hgalleryltd@gmail.com"
-          aria-label="Email us at hgalleryltd@gmail.com"
-        >
-          hgalleryltd@gmail.com
-        </a>
-      </span>
+      <span class="top-bar-item"
+        ><i class="fas fa-map-marker-alt"></i>
+        <span>Our Mall, Magadi Road, Nairobi, Kenya</span></span
+      >
+      <span class="top-bar-item"
+        ><i class="fas fa-tools"></i>
+        <span
+          >Welcome to HALLERY - Glass, Aluminium & DIY Power Tools</span
+        ></span
+      >
     </div>
-
     <div class="top-right">
-      <a href="#" aria-label="Facebook"
-        ><i class="fab fa-facebook-f" aria-hidden="true"></i
-      ></a>
-      <a href="#" aria-label="Instagram"
-        ><i class="fab fa-instagram" aria-hidden="true"></i
-      ></a>
-      <a href="#" aria-label="TikTok"
-        ><i class="fab fa-tiktok" aria-hidden="true"></i
-      ></a>
-      <a href="#" aria-label="WhatsApp"
-        ><i class="fab fa-whatsapp" aria-hidden="true"></i
-      ></a>
+      <span
+        ><i class="fas fa-phone-alt"></i>
+        <a href="tel:+254726335283">+254 726 335 283</a></span
+      >
+      <span
+        ><i class="fas fa-envelope"></i>
+        <a href="mailto:hgalleryltd@gmail.com">hgalleryltd@gmail.com</a></span
+      >
+      <div class="top-social-links">
+        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- ==========================================================
-   HEADER / NAVIGATION
+   MAIN WORKSPACE MIDDLE HEADER (Brand, Search & Badges)
    ========================================================== -->
-
-<header class="main-header" role="banner" aria-label="Main header">
-  <div class="container navbar">
-    <!-- Logo -->
-    <a href="index.html" class="logo" aria-label="HGALLERY - Home">
+<div class="middle-header">
+  <div class="container middle-navbar">
+    <!-- Premium Brand Logo Group -->
+    <a href="index.html" class="logo" aria-label="Hallery - Home">
       <img
         src="assets/logos/logo.jpg"
-        alt="HGALLERY LTD - Quality. Style. Solutions."
+        alt="HALLERY"
         width="180"
         height="60"
+        onerror="this.src = 'assets/images/logo.jpg'"
       />
     </a>
 
-    <!-- Navigation -->
-    <nav class="main-nav" role="navigation" aria-label="Main navigation">
-      <ul class="nav-menu" role="menubar">
-        <li role="none">
-          <a href="index.html" role="menuitem" class="active">Home</a>
-        </li>
-        <li role="none"><a href="about.html" role="menuitem">About</a></li>
-        <li role="none">
-          <a href="products.html" role="menuitem">Products </a>
-        </li>
-        <li role="none">
-          <a href="services.html" role="menuitem">Services</a>
-        </li>
-        <li role="none">
-          <a href="projects.html" role="menuitem">Projects</a>
-        </li>
-        <li role="none"><a href="gallery.html" role="menuitem">Gallery</a></li>
-        <li role="none"><a href="shop.html" role="menuitem">Shop</a></li>
-        <li role="none"><a href="blog.html" role="menuitem">Blog</a></li>
-        <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
-      </ul>
-    </nav>
+    <!-- Center Search Stream Engine Block -->
+    <form class="header-search-form" action="search.html" method="GET">
+      <input
+        type="text"
+        name="search"
+        id="searchInput"
+        placeholder="Search for products..."
+        aria-label="Search inputs"
+      />
+      <div class="search-category-select">
+        <select name="category" id="searchCategory">
+          <option value="all">All Categories</option>
+          <option value="glass">Glass</option>
+          <option value="aluminium">Aluminium</option>
+          <option value="tools">Power Tools</option>
+        </select>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <button type="submit" aria-label="Execute search query">
+        <i class="fas fa-search"></i>
+      </button>
+    </form>
 
-    <!-- Nav Actions -->
+    <!-- Twin Customer Conversion Badges -->
+    <div class="header-trust-badges">
+      <div class="badge-item">
+        <div class="badge-icon"><i class="fas fa-shipping-fast"></i></div>
+        <div class="badge-text">
+          <strong>Fast Delivery</strong>
+          <span>Across Nairobi</span>
+        </div>
+      </div>
+      <div class="badge-item">
+        <div class="badge-icon"><i class="fas fa-headset"></i></div>
+        <div class="badge-text">
+          <strong>Customer Support</strong>
+          <span>+254 726 335 283</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Toolbar Counters Namespace -->
     <div class="nav-actions">
-      <button class="search-btn" aria-label="Search products">
-        <i class="fas fa-search" aria-hidden="true"></i>
-      </button>
-
-      <a href="quote.html" class="btn btn-primary btn-sm">
-        <i class="fas fa-paper-plane" aria-hidden="true"></i>
-        Request Quote
+      <a href="wishlist.html" class="nav-icon-link" aria-label="View Wishlist">
+        <i class="far fa-heart"></i>
+        <span class="action-label">Wishlist</span>
       </a>
-
-      <button
-        class="menu-toggle"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false"
-      >
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="hamburger-line"></span>
-        <span class="sr-only">Menu</span>
-      </button>
-    </div>
-  </div>
-</header>
-
-<!-- ==========================================================
-   MOBILE NAVIGATION (Overlay)
-   ========================================================== -->
-
-<div class="mobile-nav-overlay" id="mobileNavOverlay" aria-hidden="true">
-  <div class="mobile-nav-container">
-    <div class="mobile-nav-header">
-      <a href="index.html" class="logo">
-        <img
-          src="assets/logos/logo.jpg"
-          alt="HGALLERY"
-          width="140"
-          height="46"
-        />
+      <a href="cart.html" class="nav-icon-link" aria-label="View Shopping Cart">
+        <div class="icon-badge-wrapper">
+          <i class="fas fa-shopping-cart"></i>
+          <span class="count">0</span>
+        </div>
+        <span class="action-label">Cart</span>
       </a>
-      <button class="mobile-nav-close" aria-label="Close menu">
-        <i class="fas fa-times" aria-hidden="true"></i>
-      </button>
-    </div>
-    <nav class="mobile-nav" role="navigation" aria-label="Mobile navigation">
-      <ul class="mobile-nav-menu">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li class="mobile-dropdown">
-          <a href="products.html" class="mobile-dropdown-toggle">
-            Products <i class="fas fa-chevron-down" aria-hidden="true"></i>
-          </a>
-          <ul class="mobile-dropdown-menu">
-            <li><a href="products.html?category=glass">Glass</a></li>
-            <li><a href="products.html?category=aluminium">Aluminium</a></li>
-            <li><a href="products.html?category=shower">Shower Cubicles</a></li>
-            <li><a href="products.html?category=wall">Wall Panels</a></li>
-            <li><a href="products.html?category=decor">Home Decor</a></li>
-          </ul>
-        </li>
-        <li><a href="services.html">Services</a></li>
-        <li><a href="projects.html">Projects</a></li>
-        <li><a href="gallery.html">Gallery</a></li>
-        <li><a href="shop.html">Shop</a></li>
-        <li><a href="blog.html">Blog</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
-    <div class="mobile-nav-footer">
-      <div class="mobile-contact">
-        <p>
-          <i class="fas fa-phone" aria-hidden="true"></i>
-          <a href="tel:+254726335283">+254 726 335 283</a>
-        </p>
-        <p>
-          <i class="fas fa-envelope" aria-hidden="true"></i>
-          <a href="mailto:hgalleryltd@gmail.com">hgalleryltd@gmail.com</a>
-        </p>
-      </div>
-      <div class="mobile-social">
-        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
-      </div>
     </div>
   </div>
 </div>
+
+<!-- ==========================================================
+   BOTTOM NAVIGATION BAR (Deep Maroon Row)
+   ========================================================== */ -->
+<header class="main-header" role="banner" aria-label="Main navigation menu">
+  <div class="container navbar-bottom-row">
+    <!-- Category Accordion Launcher Dropdown Toggle -->
+    <div class="category-dropdown-launcher">
+      <button class="browse-categories-btn">
+        <i class="fas fa-bars"></i> MENU
+      </button>
+    </div>
+
+    <!-- Core Text Menu Links Pipeline -->
+    <nav class="main-nav" role="navigation">
+      <ul class="nav-menu" role="menubar">
+        <li role="none"><a href="index.html" class="active">HOME</a></li>
+        <li role="none"><a href="about.html" class="active">ABOUT US</a></li>
+        <li role="none"><a href="services.html">SERVICES</a></li>
+        <li role="none"><a href="shop.html">SHOP</a></li>
+        <li role="none"><a href="projects.html">PROJECTS</a></li>
+        <li role="none"><a href="blog.html">BLOG</a></li>
+        <li role="none"><a href="contact.html">CONTACT US</a></li>
+      </ul>
+    </nav>
+
+    <!-- Mobile Screen Trigger Hamburger Menu -->
+    <button class="menu-toggle" aria-label="Toggle navigation menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </div>
+</header>
