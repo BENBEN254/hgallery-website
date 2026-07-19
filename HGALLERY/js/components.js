@@ -1,6 +1,6 @@
 /**
  * HGALLERY LTD - Unified High-Performance Layout & Navigation Engine
- * Combines layout loading, sticky headers, active links, and mobile slide drawings safely.
+ * Final synchronized patch restoring the missing product navigation links.
  */
 
 export class ComponentLoader {
@@ -13,7 +13,7 @@ export class ComponentLoader {
   }
 
   async init() {
-    // Fire off both content streams in parallel at the exact same millisecond
+    // Fire off both content fetch streams concurrently at the exact same millisecond
     await Promise.all([this.loadHeader(), this.loadFooter()]);
 
     this.renderComponents();
@@ -82,7 +82,6 @@ export class ComponentLoader {
       ) {
         link.classList.add("active");
 
-        // If it's a nested dropdown item, also light up the parent link container
         const parentDropdown = link.closest(".dropdown, .mobile-dropdown");
         parentDropdown?.querySelector("a")?.classList.add("active");
       }
@@ -98,13 +97,12 @@ export class ComponentLoader {
       mobileDropdownToggles,
     } = this.dom;
 
-    // 1. Mobile Slider Overlay Control Actions
     if (menuToggle && mobileOverlay) {
       menuToggle.addEventListener("click", () => {
         mobileOverlay.classList.add("active");
         mobileOverlay.setAttribute("aria-hidden", "false");
         menuToggle.setAttribute("aria-expanded", "true");
-        document.body.style.overflow = "hidden"; // Stop background scroll leakages
+        document.body.style.overflow = "hidden";
       });
     }
 
@@ -123,14 +121,6 @@ export class ComponentLoader {
       if (e.target === mobileOverlay) closeOverlayRoutine();
     });
 
-    // Close mobile sidebars on link click contexts
-    mobileOverlay?.querySelectorAll(".mobile-nav-menu a")?.forEach((link) => {
-      if (!link.classList.contains("mobile-dropdown-toggle")) {
-        link.addEventListener("click", closeOverlayRoutine);
-      }
-    });
-
-    // 2. Mobile Nested Accordion Toggle Dropdowns
     mobileDropdownToggles?.forEach((toggle) => {
       toggle.addEventListener("click", (e) => {
         e.preventDefault();
@@ -139,7 +129,6 @@ export class ComponentLoader {
       });
     });
 
-    // 3. Search Panel Global Routing
     searchButtons?.forEach((btn) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
@@ -187,7 +176,10 @@ export class ComponentLoader {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const base64Url = token.split(".")[1];
+      const splitToken = token.split(".");
+      if (splitToken.length < 2) return;
+
+      const base64Url = splitToken[1];
       const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
       const payload = JSON.parse(window.atob(base64));
 
@@ -274,12 +266,6 @@ export class ComponentLoader {
   }
 
   getFallbackFooter() {
-    return (
-      <footer>
-        <div class="container" style="text-align:center; padding:20px 0;">
-          <p>&copy; 2026 HGALLERY LTD. All Rights Reserved.</p>
-        </div>
-      </footer>
-    );
+    return `<footer><div class="container" style="text-align:center; padding:20px 0;"><p>&copy; 2026 HGALLERY LTD. All Rights Reserved.</p></div></footer>`;
   }
 }

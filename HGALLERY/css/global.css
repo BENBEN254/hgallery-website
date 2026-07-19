@@ -427,3 +427,433 @@ textarea.form-control {
 .hide {
   display: none;
 }
+
+/* ==========================================================================
+   HGALLERY UNIFIED SYSTEM STYLES (HEADER & FOOTER PATCH)
+   ========================================================================== */
+
+:root {
+  --primary: #c9974c; /* Premium gold accent color */
+  --primary-dark: #a87937;
+  --dark: #111111; /* Deep luxury onyx backdrop */
+  --light: #f9f9f9;
+  --white: #ffffff;
+  --text-muted: #777777;
+  --border: rgba(255, 255, 255, 0.1);
+  --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+/* 1. Global Layout Structural Reset Helpers */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* 2. Top-Bar Component Structural Layout */
+.top-bar {
+  background-color: var(--dark);
+  color: var(--white);
+  font-size: 0.85rem;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.top-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.top-left {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.top-bar-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.top-bar-item i {
+  color: var(--primary);
+}
+
+.top-bar-item a {
+  color: inherit;
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.top-bar-item a:hover {
+  color: var(--primary);
+}
+
+.top-right {
+  display: flex;
+  gap: 15px;
+}
+
+.top-right a {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.top-right a:hover {
+  color: var(--primary);
+  transform: translateY(-2px);
+}
+
+/* 3. Main Sticky Navbar Design Parameters */
+.main-header {
+  background-color: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+/* Smart Hide/Show Scroll Behavior Classes */
+.main-header.scrolled-down {
+  transform: translateY(-100%);
+}
+
+.main-header.scrolled-up {
+  transform: translateY(0);
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.logo img {
+  display: block;
+  object-fit: contain;
+  max-width: 100%;
+}
+
+/* 4. Desktop Navigation Tree Structure */
+.nav-menu {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 25px;
+}
+
+.nav-menu > li {
+  position: relative;
+}
+
+.nav-menu > li > a {
+  color: var(--dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition);
+}
+
+.nav-menu > li > a:hover,
+.nav-menu > li > a.active {
+  color: var(--primary);
+}
+
+/* Pure CSS Nested Dropdown Interactivity Engine */
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: var(--white);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  list-style: none;
+  min-width: 200px;
+  padding: 10px 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  transition: var(--transition);
+}
+
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown-menu li a {
+  color: var(--dark);
+  text-decoration: none;
+  padding: 10px 20px;
+  display: block;
+  font-size: 0.9rem;
+  transition: var(--transition);
+}
+
+.dropdown-menu li a:hover {
+  background-color: var(--light);
+  color: var(--primary);
+  padding-left: 25px;
+}
+
+/* 5. Nav Toolbar Action Buttons Configuration */
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-btn {
+  background: none;
+  border: none;
+  color: var(--dark);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 5px;
+  transition: var(--transition);
+}
+
+.search-btn:hover {
+  color: var(--primary);
+  transform: scale(1.1);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-dark);
+  box-shadow: 0 4px 15px rgba(201, 151, 76, 0.3);
+}
+
+/* Responsive Hamburger Custom Graphic Element Lines */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.hamburger-line {
+  width: 24px;
+  height: 2px;
+  background-color: var(--dark);
+  transition: var(--transition);
+}
+
+/* 6. Hardware Accelerated Mobile Overlay Slide Panels */
+.mobile-nav-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.mobile-nav-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobile-nav-container {
+  position: absolute;
+  top: 0;
+  right: -300px;
+  width: 100%;
+  max-width: 300px;
+  height: 100%;
+  background-color: var(--white);
+  box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mobile-nav-overlay.active .mobile-nav-container {
+  right: 0;
+}
+
+.mobile-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.mobile-nav-close {
+  background: none;
+  border: none;
+  font-size: 1.3rem;
+  color: var(--dark);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.mobile-nav-close:hover {
+  color: var(--primary);
+}
+
+.mobile-nav {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 0;
+}
+
+.mobile-nav-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.mobile-nav-menu a {
+  color: var(--dark);
+  text-decoration: none;
+  font-size: 1.05rem;
+  font-weight: 500;
+  display: block;
+  padding: 5px 0;
+  transition: var(--transition);
+}
+
+.mobile-nav-menu a:hover,
+.mobile-nav-menu a.active {
+  color: var(--primary);
+}
+
+/* Mobile Accordion Submenu Layout Rules */
+.mobile-dropdown-menu {
+  list-style: none;
+  padding-left: 15px;
+  margin-top: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  border-left: 2px solid var(--light);
+}
+
+.mobile-dropdown.open .mobile-dropdown-menu {
+  display: flex;
+}
+
+.mobile-dropdown-toggle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mobile-nav-footer {
+  padding-top: 20px;
+  border-top: 1px solid #eeeeee;
+}
+
+.mobile-contact {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-contact p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+}
+
+.mobile-contact a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mobile-social {
+  display: flex;
+  gap: 15px;
+}
+
+.mobile-social a {
+  color: var(--dark);
+  font-size: 1.1rem;
+  transition: var(--transition);
+}
+
+.mobile-social a:hover {
+  color: var(--primary);
+}
+
+/* 7. Footer Architecture Grid Layout Specifications */
+footer {
+  background-color: var(--dark);
+  color: rgba(255, 255, 255, 0.7);
+  padding: 30px 0;
+  border-top: 3px solid var(--primary);
+  font-size: 0.9rem;
+}
+
+/* 8. Desktop Breakdown Responsive Media Query Intercepts */
+@media (max-width: 992px) {
+  .main-nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-actions .btn {
+    display: none; /* Keep layout tight on tablet layouts */
+  }
+}
+
+@media (max-width: 576px) {
+  .top-bar {
+    display: none; /* Strip top element clutter on small smartphone widths */
+  }
+}
