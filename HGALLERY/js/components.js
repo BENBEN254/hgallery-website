@@ -1,25 +1,25 @@
 /**
- * HGALLERY LTD - High-Performance Layout Engine & Component Loader
- * Optimized to remove network lag using Parallel Asynchronous Execution streams.
+ * HGALLERY LTD - Unified High-Performance Layout & Navigation Engine
+ * Combines layout loading, sticky headers, active links, and mobile slide drawings safely.
  */
 
 export class ComponentLoader {
   constructor() {
     this.headerHTML = "";
     this.footerHTML = "";
-
-    // Cached DOM Namespace to prevent layout lookups inside event loops
     this.dom = {};
+    this.lastScroll = 0;
     this.init();
   }
 
   async init() {
-    // Optimization: Run both fetch processes concurrently in parallel stream loops
+    // Fire off both content streams in parallel at the exact same millisecond
     await Promise.all([this.loadHeader(), this.loadFooter()]);
 
     this.renderComponents();
     this.cacheDOM();
     this.initHeaderScripts();
+    this.initStickyHeader();
     this.injectAdminControls();
   }
 
@@ -56,50 +56,130 @@ export class ComponentLoader {
   }
 
   cacheDOM() {
+    this.dom.header = document.querySelector(".main-header, .header");
     this.dom.menuToggle = document.querySelector(".menu-toggle");
-    this.dom.navMenu = document.querySelector(".nav-menu");
-    this.dom.navActions = document.querySelector(".nav-actions");
-    this.dom.searchToggle = document.querySelector(
-      '.nav-icon[aria-label="Search"]',
+    this.dom.mobileOverlay = document.getElementById("mobileNavOverlay");
+    this.dom.mobileClose = document.querySelector(".mobile-nav-close");
+    this.dom.searchButtons = document.querySelectorAll(
+      ".search-btn, .nav-icon[aria-label='Search']",
     );
-    this.dom.badges = document.querySelectorAll(".count");
+    this.dom.mobileDropdownToggles = document.querySelectorAll(
+      ".mobile-dropdown-toggle",
+    );
   }
 
   setActiveNav() {
     const currentPath =
       window.location.pathname.split("/").pop() || "index.html";
-    const links = document.querySelectorAll(".nav-menu a");
+    const links = document.querySelectorAll(".nav-menu a, .mobile-nav-menu a");
 
-    // Using single-pass iteration optimization
-    for (let i = 0; i < links.length; i++) {
-      if (links[i].getAttribute("href") === currentPath) {
-        links[i].classList.add("active");
-        break; // Stop iteration loop immediately once target matching path is found
+    links.forEach((link) => {
+      link.classList.remove("active");
+      const linkHref = link.getAttribute("href");
+      if (
+        linkHref === currentPath ||
+        (currentPath === "" && linkHref === "index.html")
+      ) {
+        link.classList.add("active");
+
+        // If it's a nested dropdown item, also light up the parent link container
+        const parentDropdown = link.closest(".dropdown, .mobile-dropdown");
+        parentDropdown?.querySelector("a")?.classList.add("active");
       }
-    }
+    });
   }
 
   initHeaderScripts() {
-    const { menuToggle, navMenu, searchToggle } = this.dom;
+    const {
+      menuToggle,
+      mobileOverlay,
+      mobileClose,
+      searchButtons,
+      mobileDropdownToggles,
+    } = this.dom;
 
-    if (menuToggle && navMenu) {
+    // 1. Mobile Slider Overlay Control Actions
+    if (menuToggle && mobileOverlay) {
       menuToggle.addEventListener("click", () => {
-        const isActive = navMenu.classList.toggle("active");
-        const icon = menuToggle.querySelector("i");
-        if (icon) {
-          icon.className = isActive ? "fas fa-times" : "fas fa-bars";
-        }
+        mobileOverlay.classList.add("active");
+        mobileOverlay.setAttribute("aria-hidden", "false");
+        menuToggle.setAttribute("aria-expanded", "true");
+        document.body.style.overflow = "hidden"; // Stop background scroll leakages
       });
     }
 
-    this.updateCartBadge();
+    const closeOverlayRoutine = () => {
+      if (mobileOverlay) {
+        mobileOverlay.classList.remove("active");
+        mobileOverlay.setAttribute("aria-hidden", "true");
+        menuToggle?.setAttribute("aria-expanded", "false");
+        document.body.style.overflow = "";
+      }
+    };
 
-    if (searchToggle) {
-      searchToggle.addEventListener("click", (e) => {
+    mobileClose?.addEventListener("click", closeOverlayRoutine);
+
+    mobileOverlay?.addEventListener("click", (e) => {
+      if (e.target === mobileOverlay) closeOverlayRoutine();
+    });
+
+    // Close mobile sidebars on link click contexts
+    mobileOverlay?.querySelectorAll(".mobile-nav-menu a")?.forEach((link) => {
+      if (!link.classList.contains("mobile-dropdown-toggle")) {
+        link.addEventListener("click", closeOverlayRoutine);
+      }
+    });
+
+    // 2. Mobile Nested Accordion Toggle Dropdowns
+    mobileDropdownToggles?.forEach((toggle) => {
+      toggle.addEventListener("click", (e) => {
+        e.preventDefault();
+        const parentLi = toggle.closest(".mobile-dropdown");
+        parentLi?.classList.toggle("open");
+      });
+    });
+
+    // 3. Search Panel Global Routing
+    searchButtons?.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
         e.preventDefault();
         window.location.href = "search.html";
       });
-    }
+    });
+  }
+
+  initStickyHeader() {
+    const targetHeader = this.dom.header;
+    if (!targetHeader) return;
+
+    let ticking = false;
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const currentScroll =
+              window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > this.lastScroll && currentScroll > 100) {
+              targetHeader.classList.add("scrolled-down");
+              targetHeader.classList.remove("scrolled-up");
+            } else if (currentScroll < this.lastScroll && currentScroll > 100) {
+              targetHeader.classList.add("scrolled-up");
+              targetHeader.classList.remove("scrolled-down");
+            } else {
+              targetHeader.classList.remove("scrolled-down", "scrolled-up");
+            }
+
+            this.lastScroll = currentScroll;
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true },
+    );
   }
 
   injectAdminControls() {
@@ -115,28 +195,25 @@ export class ComponentLoader {
         payload &&
         (payload.role === "admin" || payload.role === "super-admin")
       ) {
-        const { navMenu, navActions, menuToggle } = this.dom;
+        const navMenu = document.querySelector(".nav-menu");
+        const mobileNavMenu = document.querySelector(".mobile-nav-menu");
 
         if (navMenu && !document.querySelector(".admin-nav-item")) {
           const adminLi = document.createElement("li");
           adminLi.className = "admin-nav-item";
-          adminLi.innerHTML = `<a href="product-upload.html" style="color: var(--primary); font-weight:700;"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</a>`;
+          adminLi.setAttribute("role", "none");
+          adminLi.innerHTML = `<a href="product-upload.html" role="menuitem" style="color: var(--primary); font-weight:700;"><i class="fa-solid fa-screwdriver-wrench"></i> Admin</a>`;
           navMenu.appendChild(adminLi);
         }
 
-        if (navActions && !document.querySelector(".admin-icon-btn")) {
-          const adminBtn = document.createElement("a");
-          adminBtn.href = "product-upload.html";
-          adminBtn.className = "nav-icon admin-icon-btn";
-          adminBtn.setAttribute("aria-label", "Admin Control Panel");
-          adminBtn.setAttribute("title", "Launch Management Studio");
-          adminBtn.innerHTML = `<i class="fa-solid fa-user-gear" style="color: var(--primary);"></i>`;
-
-          if (menuToggle) {
-            navActions.insertBefore(adminBtn, menuToggle);
-          } else {
-            navActions.appendChild(adminBtn);
-          }
+        if (
+          mobileNavMenu &&
+          !document.querySelector(".mobile-admin-nav-item")
+        ) {
+          const mobileAdminLi = document.createElement("li");
+          mobileAdminLi.className = "mobile-admin-nav-item";
+          mobileAdminLi.innerHTML = `<a href="product-upload.html" style="color: var(--primary); font-weight:700;"><i class="fa-solid fa-screwdriver-wrench"></i> Admin Panel</a>`;
+          mobileNavMenu.appendChild(mobileAdminLi);
         }
       }
     } catch (err) {
@@ -144,81 +221,65 @@ export class ComponentLoader {
     }
   }
 
-  updateCartBadge() {
-    try {
-      const cartData = localStorage.getItem("hgallery_cart");
-      const cart = cartData ? JSON.parse(cartData) : { count: 0 };
-      const countValue = cart.count || 0;
-      const displayStyle = countValue > 0 ? "flex" : "none";
-
-      this.dom.badges?.forEach((badge) => {
-        badge.textContent = countValue;
-        badge.style.display = displayStyle;
-      });
-    } catch (error) {
-      console.error("Error updating cart badge:", error);
-    }
-  }
-
   getFallbackHeader() {
     return `
-      <div class="top-bar">
-        <div class="container">
+      <div class="top-bar" role="banner" aria-label="Top bar">
+        <div class="container top-bar-content">
           <div class="top-left">
-            <span><i class="fas fa-phone-alt"></i> <a href="tel:+254726335283">+254 726 335 283</a></span>
-            <span><i class="fas fa-envelope"></i> <a href="mailto:hgalleryltd@gmail.com">hgalleryltd@gmail.com</a></span>
+            <span class="top-bar-item"><i class="fas fa-map-marker-alt"></i> <span>Our Mall, Magadi Road, Nairobi</span></span>
+            <span class="top-bar-item"><i class="fas fa-phone"></i> <a href="tel:+254726335283">+254 726 335 283</a></span>
+            <span class="top-bar-item"><i class="fas fa-envelope"></i> <a href="mailto:hgalleryltd@gmail.com">hgalleryltd@gmail.com</a></span>
           </div>
           <div class="top-right">
-            <span><i class="fas fa-map-marker-alt"></i> Our Mall, Magadi Road, Nairobi</span>     
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+            <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
           </div>
         </div>
       </div>
-      <header>
-        <div class="container">
-          <nav class="navbar">
-            <div class="logo"><a href="index.html"><h1>H<span>GALLERY</span></h1></a></div>
-            <ul class="nav-menu">
+      <header class="main-header" role="banner" aria-label="Main header">
+        <div class="container navbar">
+          <a href="index.html" class="logo"><img src="assets/logos/logo.jpg" alt="HGALLERY LTD" width="180" height="60"></a>
+          <nav class="main-nav" role="navigation">
+            <ul class="nav-menu" role="menubar">
               <li><a href="index.html">Home</a></li>
               <li><a href="about.html">About</a></li>
-              <li><a href="shop.html">Products</a></li>
+              <li class="dropdown">
+                <a href="products.html">Products <i class="fas fa-chevron-down"></i></a>
+                <ul class="dropdown-menu">
+                  <li><a href="products.html?category=glass">Glass</a></li>
+                  <li><a href="products.html?category=aluminium">Aluminium</a></li>
+                  <li><a href="products.html?category=shower">Shower Cubicles</a></li>
+                  <li><a href="products.html?category=wall">Wall Panels</a></li>
+                  <li><a href="products.html?category=decor">Home Decor</a></li>
+                </ul>
+              </li>
               <li><a href="services.html">Services</a></li>
               <li><a href="projects.html">Projects</a></li>
               <li><a href="gallery.html">Gallery</a></li>
+              <li><a href="shop.html">Shop</a></li>
+              <li><a href="blog.html">Blog</a></li>
               <li><a href="contact.html">Contact</a></li>
             </ul>
-            <div class="nav-actions">
-              <a href="search.html" class="nav-icon" aria-label="Search"><i class="fas fa-search"></i></a>
-              <a href="wishlist.html" class="nav-icon" aria-label="Wishlist"><i class="fas fa-heart"></i></a>
-              <a href="cart.html" class="nav-icon" aria-label="Cart">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="count">0</span>
-              </a>
-              <button class="menu-toggle" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
-            </div>
           </nav>
+          <div class="nav-actions">
+            <button class="search-btn" aria-label="Search products"><i class="fas fa-search"></i></button>
+            <a href="quote.html" class="btn btn-primary btn-sm"><i class="fas fa-paper-plane"></i> Request Quote</a>
+            <button class="menu-toggle" aria-label="Toggle navigation menu"><span class="hamburger-line"></span><span class="hamburger-line"></span><span class="hamburger-line"></span></button>
+          </div>
         </div>
       </header>
     `;
   }
 
   getFallbackFooter() {
-    return `
+    return (
       <footer>
-        <div class="container">
-          <div class="footer-grid">
-            <div class="footer-column">
-              <div class="footer-logo"><h2>H<span>GALLERY</span></h2></div>
-              <p>Quality. Style. Solutions. Since 2015, we've been transforming spaces with premium glass, aluminium, and home decor solutions.</p>
-              <div class="social-icons">
-                <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-              </div>
-            </div>
-          </div>
+        <div class="container" style="text-align:center; padding:20px 0;">
+          <p>&copy; 2026 HGALLERY LTD. All Rights Reserved.</p>
         </div>
       </footer>
-    `;
+    );
   }
 }
