@@ -4,7 +4,11 @@
 
 .services-hero {
   padding: 3rem 0;
-  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--primary-dark) 100%
+  );
   color: var(--white);
 }
 
@@ -153,11 +157,11 @@
     grid-template-columns: 1fr;
     gap: 2rem;
   }
-  
+
   .service-detail .detail-image img {
     height: 280px;
   }
-  
+
   .service-detail .detail-content .features-list {
     grid-template-columns: 1fr;
   }

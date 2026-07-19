@@ -1,10 +1,17 @@
 /**
  * HGALLERY LTD - Main Application
- * Entry point that initializes all modules
+ * Entry point optimized for high-speed concurrent network stream execution.
  */
 
 import { ComponentLoader } from "./components.js";
 import { Utils } from "./utils.js";
+
+// Global Static Fallbacks Config to eliminate redundant string assignments
+const ASSETS = {
+  PLACEHOLDER: "/assets/images/placeholder.jpg",
+  AVATAR: "/assets/images/avatar-placeholder.jpg",
+  BRAND: "/assets/images/brand-placeholder.jpg",
+};
 
 class App {
   constructor() {
@@ -13,14 +20,14 @@ class App {
   }
 
   async init() {
-    // Load header and footer components
+    // 1. Immediately kick off component initialization
     const loader = new ComponentLoader();
     await loader.init();
 
-    // Initialize utilities
-    const utils = new Utils();
+    // 2. Initialize secondary layout utilities
+    new Utils();
 
-    // Initialize page-specific modules
+    // 3. Evaluate conditional routing paths
     this.initPageModules();
   }
 
@@ -63,41 +70,47 @@ class App {
     }
   }
 
+  // ==========================================================
+  // HIGH-SPEED PARALLEL CONCURRENCY DATA ENGINE
+  // ==========================================================
   async initHome() {
     try {
-      // Load featured products
-      const productsModule = await import("./products.js");
+      // Slicing out execution latency by processing imports concurrently
+      const [productsModule, servicesModule] = await Promise.all([
+        import("./products.js"),
+        import("./services.js"),
+      ]);
+
       const products = new productsModule.Products();
-      await products.loadProducts();
-      products.renderFeatured();
-
-      // Load services
-      const servicesModule = await import("./services.js");
       const services = new servicesModule.Services();
-      await services.loadServices();
-      services.renderServices();
 
-      // Load categories
-      const catResponse = await fetch("/data/categories.json");
-      const catData = await catResponse.json();
-      this.renderCategories(catData.categories || []);
+      // Launch ALL 6 backend fetch threads concurrently at the exact same millisecond
+      const results = await Promise.allSettled([
+        products.loadProducts(),
+        services.loadServices(),
+        fetch("/data/categories.json").then((res) => res.json()),
+        fetch("/data/projects.json").then((res) => res.json()),
+        fetch("/data/testimonials.json").then((res) => res.json()),
+        fetch("/data/brands.json").then((res) => res.json()),
+      ]);
 
-      // Load projects
-      const projResponse = await fetch("/data/projects.json");
-      const projData = await projResponse.json();
-      this.renderProjects(projData.projects || []);
+      // Safely evaluate thread payload collections
+      if (results[0].status === "fulfilled") products.renderFeatured();
+      if (results[1].status === "fulfilled") services.renderServices();
 
-      // Load testimonials
-      const testResponse = await fetch("/data/testimonials.json");
-      const testData = await testResponse.json();
-      this.renderTestimonials(testData.testimonials || []);
-
-      // Load brands
-      const brandsResponse = await fetch("/data/brands.json");
-      const brandsData = await brandsResponse.json();
-      this.renderBrands(brandsData.brands || []);
+      if (results[2].status === "fulfilled")
+        this.renderCategories(results[2].value?.categories || []);
+      if (results[3].status === "fulfilled")
+        this.renderProjects(results[3].value?.projects || []);
+      if (results[4].status === "fulfilled")
+        this.renderTestimonials(results[4].value?.testimonials || []);
+      if (results[5].status === "fulfilled")
+        this.renderBrands(results[5].value?.brands || []);
     } catch (error) {
-      console.error("Error loading home page data:", error);
+      console.error(
+        "Critical error mapping concurrent homepage assets:",
+        error,
+      );
     }
   }
 
@@ -105,12 +118,14 @@ class App {
     const container = document.getElementById("categoriesGrid");
     if (!container) return;
 
-    container.innerHTML = categories
-      .map(
-        (cat) => `
+    this.fastInnerHTML(
+      container,
+      categories
+        .map(
+          (cat) => `
       <a href="products.html?category=${cat.slug}" class="category-card">
         <div class="category-image">
-          <img src="${cat.image || "/assets/images/placeholder.jpg"}" alt="${cat.name}" loading="lazy">
+          <img src="${cat.image || ASSETS.PLACEHOLDER}" alt="${cat.name}" loading="lazy">
           <div class="category-overlay"></div>
         </div>
         <div class="category-content">
@@ -120,8 +135,9 @@ class App {
         </div>
       </a>
     `,
-      )
-      .join("");
+        )
+        .join(""),
+    );
   }
 
   renderProjects(projects) {
@@ -130,12 +146,14 @@ class App {
 
     const featured = projects.filter((p) => p.featured).slice(0, 3);
 
-    container.innerHTML = featured
-      .map(
-        (p) => `
+    this.fastInnerHTML(
+      container,
+      featured
+        .map(
+          (p) => `
       <div class="project-card">
         <div class="project-image">
-          <img src="${p.image || "/assets/images/placeholder.jpg"}" alt="${p.title}" loading="lazy">
+          <img src="${p.image || ASSETS.PLACEHOLDER}" alt="${p.title}" loading="lazy">
         </div>
         <div class="project-overlay">
           <span class="project-category">${p.category}</span>
@@ -145,24 +163,27 @@ class App {
         </div>
       </div>
     `,
-      )
-      .join("");
+        )
+        .join(""),
+    );
   }
 
   renderTestimonials(testimonials) {
     const container = document.getElementById("testimonialsGrid");
     if (!container) return;
 
-    container.innerHTML = testimonials
-      .map(
-        (t) => `
+    this.fastInnerHTML(
+      container,
+      testimonials
+        .map(
+          (t) => `
       <div class="testimonial-card fade-up">
         <div class="testimonial-rating">
-          ${"★".repeat(t.rating)}${"☆".repeat(5 - t.rating)}
+          ${"★".repeat(t.rating)}${"☆".repeat(Math.max(0, 5 - t.rating))}
         </div>
         <p class="testimonial-text">"${t.quote}"</p>
         <div class="client">
-          <img src="${t.avatar || "/assets/images/avatar-placeholder.jpg"}" alt="${t.name}">
+          <img src="${t.avatar || ASSETS.AVATAR}" alt="${t.name}">
           <div>
             <h4>${t.name}</h4>
             <span>${t.role}${t.location ? `, ${t.location}` : ""}</span>
@@ -170,27 +191,38 @@ class App {
         </div>
       </div>
     `,
-      )
-      .join("");
+        )
+        .join(""),
+    );
   }
 
   renderBrands(brands) {
     const container = document.getElementById("brandsGrid");
     if (!container) return;
 
-    container.innerHTML = brands
-      .map(
-        (brand) => `
+    this.fastInnerHTML(
+      container,
+      brands
+        .map(
+          (brand) => `
       <div class="brand-item">
-        <img src="${brand.logo || "/assets/images/brand-placeholder.jpg"}" alt="${brand.name}" loading="lazy">
+        <img src="${brand.logo || ASSETS.BRAND}" alt="${brand.name}" loading="lazy">
       </div>
     `,
-      )
-      .join("");
+        )
+        .join(""),
+    );
+  }
+
+  /**
+   * Performance Helper: Limits browser reflow paints during text injections
+   */
+  fastInnerHTML(element, htmlString) {
+    element.textContent = "";
+    element.insertAdjacentHTML("beforeend", htmlString);
   }
 }
 
-// Initialize app when DOM is ready
 document.addEventListener("DOMContentLoaded", () => {
   window.app = new App();
 });

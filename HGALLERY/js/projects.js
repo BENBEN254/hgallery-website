@@ -1,39 +1,46 @@
 /**
- * Projects Module - Dynamic Portfolio Management
- * Built by Senior Dev for Real-Time Database Synergy
+ * Projects UI Layout Controller
+ * Manages clean string text serialization, event delegation, and structural component paints.
  */
+import { ProjectsAPI, PROJECTS_CONFIG } from "./ProjectsAPI.js";
 
 export class Projects {
   constructor() {
-    this.projects = [];
+    this.api = new ProjectsAPI();
+    this.dom = {};
     this.init();
   }
 
   async init() {
-    await this.loadProjects();
-    // Render all projects on page load context
-    this.renderProjects();
-    this.setupCategoryFilters();
+    this.cacheDOM();
+    await this.loadProjectAssets();
+    this.setupFilterDelegation();
   }
 
-  // ==========================================================
-  // DYNAMIC PORTFOLIO API CONNECTION ENGINE
-  // ==========================================================
-  async loadProjects() {
+  cacheDOM() {
+    this.dom.grid = document.getElementById("projectsGrid");
+    // Cache target filter wrappers to isolate mouse capture events safely
+    this.dom.filterContainer =
+      document.getElementById("portfolioFilters") || document.body;
+  }
+
+  /**
+   * Encodes server text strings defensively to negate layout vulnerabilities (XSS)
+   */
+  escapeHTML(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  async loadProjectAssets() {
     try {
-      // Connects directly to the Portfolio project model route
-      const response = await fetch("http://localhost:5000/api/projects");
-
-      if (!response.ok) {
-        throw new Error(`HTTP network error status: ${response.status}`);
-      }
-
-      const resData = await response.json();
-
-      if (resData.success) {
-        // Unpack database object payload records smoothly
-        this.projects = resData.data || [];
-      }
+      await this.api.fetchPortfolio();
+      this.renderProjectsGrid("all");
     } catch (error) {
       console.error("Unable to query active portfolio assets:", error);
       this.showError(
@@ -42,40 +49,47 @@ export class Projects {
     }
   }
 
-  // ==========================================================
-  // RENDER PORTFOLIO PROJECTS GRID IMAGERY CARD GRID
-  // ==========================================================
-  renderProjects(filterCategory = "all") {
-    const container = document.getElementById("projectsGrid");
-    if (!container) return; // Exit cleanly if the current page template doesn't load a grid
+  /**
+   * Renders dynamic case-study blocks inside target viewport areas
+   * @param {string} filterCategory
+   */
+  renderProjectsGrid(filterCategory = "all") {
+    if (!this.dom.grid) return;
 
-    // Run selective categorization matching checks on data parameters
+    const dataSet = this.api.projects;
+    const targetFilter = filterCategory.toLowerCase();
+
+    // Single-pass inline optimization array filter
     const displayItems =
-      filterCategory === "all"
-        ? this.projects
-        : this.projects.filter(
-            (p) =>
-              p.categoryName?.toLowerCase() === filterCategory.toLowerCase(),
-          );
+      targetFilter === "all"
+        ? dataSet
+        : dataSet.filter((p) => p.categoryName?.toLowerCase() === targetFilter);
 
     if (displayItems.length === 0) {
-      container.innerHTML = `<p style="text-align:center; color:var(--text-muted); width:100%; grid-column:1/-1; padding:40px;">No showcase projects found under this category.</p>`;
+      this.dom.grid.innerHTML = `
+        <p style="text-align:center; color:var(--text-muted); width:100%; grid-column:1/-1; padding:40px;">
+          No showcase projects found under this category.
+        </p>
+      `;
       return;
     }
 
-    container.innerHTML = displayItems
+    this.dom.grid.innerHTML = displayItems
       .map((project) => {
         const projectId = project._id || project.id;
-        const coverImage = project.mainImage || "assets/images/hero.jpg";
+        const coverImage = project.mainImage || PROJECTS_CONFIG.DEFAULT_HERO;
+        const cleanTag = this.escapeHTML(project.categoryName || "General");
+        const cleanTitle = this.escapeHTML(project.title);
+        const cleanClient = this.escapeHTML(project.client || "Private Client");
 
         return `
-          <div class="project-card fade-up" data-category="${project.categoryName || "General"}">
+          <div class="project-card fade-up" data-category="${cleanTag}">
             <div class="project-image">
-              <img src="${coverImage}" alt="${project.title}" loading="lazy" onerror="this.src='assets/images/hero.jpg'">
+              <img src="${coverImage}" alt="${cleanTitle}" loading="lazy" onerror="this.src='${PROJECTS_CONFIG.DEFAULT_HERO}'">
               <div class="project-hover-content">
-                <span class="project-tag">${project.categoryName || "General"}</span>
-                <h3>${project.title}</h3>
-                <p class="project-client"><strong>Client:</strong> ${project.client || "Private Client"}</p>
+                <span class="project-tag">${cleanTag}</span>
+                <h3>${cleanTitle}</h3>
+                <p class="project-client"><strong>Client:</strong> ${cleanClient}</p>
                 <div class="project-action-link">
                   <a href="project-details.html?slug=${project.slug || projectId}" class="btn-link">
                     View Case Study <i class="fas fa-arrow-right"></i>
@@ -89,40 +103,32 @@ export class Projects {
       .join("");
   }
 
-  // ==========================================================
-  // INTERACTIVE NAV FILTER HOOKS CLICK HANDLERS
-  // ==========================================================
-  setupCategoryFilters() {
-    // Looks for portfolio selector links matching standard anchor layout grids
-    const filterLinks = document.querySelectorAll(
-      "#portfolioFilters a, .project-filter-btn",
-    );
-    if (!filterLinks) return;
+  setupFilterDelegation() {
+    // High-performance event delegation replaces loops over multiple button elements
+    this.dom.filterContainer?.addEventListener("click", (e) => {
+      const link = e.target.closest("a, .project-filter-btn");
+      if (!link) return;
 
-    filterLinks.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
+      e.preventDefault();
 
-        // Handle visual swap mechanics for active styling parameters
-        filterLinks.forEach((l) => l.classList.remove("active"));
-        link.classList.add("active");
+      // Clear styling flags cleanly across linked elements inside this container tree branch
+      this.dom.filterContainer
+        .querySelectorAll("a, .project-filter-btn")
+        .forEach((l) => l.classList.remove("active"));
+      link.classList.add("active");
 
-        // Target target categorical attributes mapped on html files
-        const selectedCategory = link.dataset.filter || "all";
-        this.renderProjects(selectedCategory);
-      });
+      const chosenCategory = link.dataset.filter || "all";
+      this.renderProjectsGrid(chosenCategory);
     });
   }
 
   showError(message) {
-    const container = document.getElementById("projectsGrid");
-    if (container) {
-      container.innerHTML = `<div class="error-msg" style="color:var(--danger); width:100%; grid-column:1/-1; text-align:center; padding:30px;">${message}</div>`;
+    if (this.dom.grid) {
+      this.dom.grid.innerHTML = `
+        <div class="error-msg" style="color:var(--danger); width:100%; grid-column:1/-1; text-align:center; padding:30px;">
+          ${this.escapeHTML(message)}
+        </div>
+      `;
     }
   }
 }
-
-// Instantiate module tracking framework components safely
-document.addEventListener("DOMContentLoaded", () => {
-  window.ProjectsInstance = new Projects();
-});

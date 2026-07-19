@@ -1,327 +1,167 @@
 /**
- * Shop Module - Product Loading & Management
- * Refactored for real-time dynamic MongoDB Backend Sync
+ * Shop UI Controller Module
+ * Handles structural DOM manipulation, template updates, and user interaction delegation.
  */
+import { ShopAPI, CONFIG } from "./ShopAPI.js";
 
 export class Shop {
   constructor() {
-    this.products = [];
-    this.pagination = { page: 1, limit: 9, total: 0, pages: 1 };
-
-    // Internal state management mappings for API parameters
-    this.currentCategory = "all";
-    this.currentSort = "newest";
-    this.minPrice = 0;
-    this.maxPrice = "";
-    this.minRating = 0;
-    this.inStockOnly = false;
-    this.searchQuery = "";
-    this.currentView = "grid";
-
-    // DOM bindings matching your layout configuration
-    this.grid = document.getElementById("productsGrid");
-    this.countEl = document.getElementById("productCount");
-    this.pageNumbers = document.getElementById("pageNumbers");
-    this.prevBtn = document.getElementById("prevPage");
-    this.nextBtn = document.getElementById("nextPage");
-    this.sortSelect = document.getElementById("sortProducts");
-    this.categoryFilters = document.querySelectorAll("#categoryFilters a");
-    this.ratingFilters = document.querySelectorAll(".filter-rating a");
-    this.inStockFilter = document.getElementById("inStockFilter");
-    this.minPriceInput = document.getElementById("minPrice");
-    this.maxPriceInput = document.getElementById("maxPrice");
-    this.priceFilterBtn = document.getElementById("priceFilterBtn");
-    this.searchInput = document.getElementById("shopSearch");
-    this.searchBtn = document.getElementById("searchBtn");
-    this.clearFiltersBtn = document.getElementById("clearFilters");
-    this.viewButtons = document.querySelectorAll(".view-toggle button");
-
+    this.api = new ShopAPI(); // Instantiate the backend engine
+    this.dom = {};
     this.init();
   }
 
   async init() {
-    await this.loadProducts();
-    this.setupEventListeners();
+    this.cacheDOM();
+    this.setupEventDelegation();
+    await this.syncWithBackend();
   }
 
-  // ==========================================================
-  // DYNAMIC ASYNC BACKEND CONNECTIVITY API ENGINE
-  // ==========================================================
-  async loadProducts() {
+  cacheDOM() {
+    this.dom.grid = document.getElementById("productsGrid");
+    this.dom.countEl = document.getElementById("productCount");
+    this.dom.pageNumbers = document.getElementById("pageNumbers");
+    this.dom.prevBtn = document.getElementById("prevPage");
+    this.dom.nextBtn = document.getElementById("nextPage");
+    this.dom.sortSelect = document.getElementById("sortProducts");
+    this.dom.filterContainer =
+      document.querySelector(".shop-sidebar-filters") || document.body;
+    this.dom.viewContainer = document.querySelector(".view-toggle");
+  }
+
+  escapeHTML(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+  }
+
+  async syncWithBackend() {
     try {
-      // 1. Build Query String dynamically using internal dashboard state
-      const queryParams = new URLSearchParams({
-        page: this.pagination.page,
-        limit: this.pagination.limit,
-        sort: this.currentSort,
-        inStock: this.inStockOnly ? "true" : "false",
-      });
-
-      if (this.currentCategory !== "all")
-        queryParams.append("categoryName", this.currentCategory);
-      if (this.searchQuery.trim() !== "")
-        queryParams.append("search", this.searchQuery);
-      if (this.minPrice > 0) queryParams.append("minPrice", this.minPrice);
-      if (this.maxPrice !== "") queryParams.append("maxPrice", this.maxPrice);
-      if (this.minRating > 0) queryParams.append("rating", this.minRating);
-
-      // 2. Fetch from Express Application Instance
-      const response = await fetch(
-        `http://localhost:5000/api/products?${queryParams.toString()}`,
-      );
-
-      if (!response.ok) {
-        throw new Error(`HTTP network error! status: ${response.status}`);
-      }
-
-      const resData = await response.json();
-
-      if (resData.success) {
-        this.products = resData.data.products || [];
-        this.pagination = resData.data.pagination;
-
-        // Render UI panels directly
-        this.renderProducts();
-        this.updateProductCount();
-      }
+      this.toggleLoading(true);
+      await this.api.fetchInventory();
+      this.render();
     } catch (error) {
-      console.error("Database connection failure:", error);
-      this.showError(
-        "Failed to fetch current stock inventory. Verify your API instance is running.",
-      );
+      console.error("Database UI rendering exception stack:", error);
+      this.showError("Failed to synchronize with backend records.");
+    } finally {
+      this.toggleLoading(false);
     }
   }
 
-  // ==========================================================
-  // RENDER PRODUCTS
-  // ==========================================================
-  renderProducts() {
-    if (this.products.length === 0) {
-      this.grid.innerHTML = this.getEmptyStateHTML();
+  setupEventDelegation() {
+    // Drop down sorting controller action
+    this.dom.sortSelect?.addEventListener("change", (e) => {
+      this.api.state.filters.sort = e.target.value;
+      this.api.state.pagination.page = 1;
+      this.syncWithBackend();
+    });
+
+    // Unified click event handler tracking multi-filter targets
+    this.dom.filterContainer?.addEventListener("click", (e) => {
+      const categoryLink = e.target.closest("#categoryFilters a");
+      if (categoryLink) {
+        e.preventDefault();
+        this.api.state.filters.category =
+          categoryLink.dataset.category || "all";
+        this.api.state.pagination.page = 1;
+        this.syncWithBackend();
+        return;
+      }
+
+      const ratingLink = e.target.closest(".filter-rating a");
+      if (ratingLink) {
+        e.preventDefault();
+        this.api.state.filters.minRating = Number(
+          ratingLink.dataset.rating || 0,
+        );
+        this.api.state.pagination.page = 1;
+        this.syncWithBackend();
+      }
+    });
+
+    // Grid vs List view toggle elements listener loop
+    this.dom.viewContainer?.addEventListener("click", (e) => {
+      const viewButton = e.target.closest("button[data-view]");
+      if (!viewButton) return;
+      this.api.state.ui.currentView = viewButton.dataset.view;
+      this.render();
+    });
+  }
+
+  render() {
+    if (!this.dom.grid) return;
+    const { products, ui } = this.api.state;
+
+    if (products.length === 0) {
+      this.dom.grid.innerHTML = this.getEmptyStateHTML();
       this.renderPagination();
       return;
     }
 
-    this.grid.innerHTML = this.products
-      .map((product) => this.createProductCard(product))
+    this.dom.grid.innerHTML = products
+      .map((product) => this.createProductCard(product, ui.currentView))
       .join("");
 
+    this.updateProductCount();
     this.renderPagination();
-    if (typeof this.attachProductEvents === "function")
-      this.attachProductEvents();
   }
 
-  // ==========================================================
-  // CREATE PRODUCT CARD (Updated mapping for Database Schemas)
-  // ==========================================================
-  createProductCard(product) {
-    // Map database properties safely (_id instead of id, mainImage for pictures)
+  createProductCard(product, currentView) {
     const productId = product._id || product.id;
     const itemImage =
       product.mainImage ||
-      (product.images && product.images[0]?.url) ||
-      "assets/images/placeholder.jpg";
-    const isInWishlist =
-      typeof this.isInWishlist === "function"
-        ? this.isInWishlist(productId)
-        : false;
+      product.images?.[0]?.url ||
+      CONFIG.DEFAULT_PLACEHOLDER;
+    const isList = currentView === "list";
 
     return `
-      <div class="product-card ${this.currentView === "list" ? "list-view" : ""}">
+      <div class="product-card ${isList ? "list-view" : ""}">
         <div class="product-image">
-          <img src="${itemImage}" 
-               alt="${product.name}" 
-               loading="lazy"
-               onerror="this.src='assets/images/placeholder.jpg'" />
-          
-          ${this.getBadges(product)}
-          
+          <img src="${itemImage}" alt="${this.escapeHTML(product.name)}" loading="lazy" onerror="this.src='${CONFIG.DEFAULT_PLACEHOLDER}'" />
           <div class="product-actions">
-            <button class="wishlist-btn" data-id="${productId}" aria-label="Add to wishlist">
-              <i class="${isInWishlist ? "fas" : "far"} fa-heart" 
-                 style="${isInWishlist ? "color: var(--primary);" : ""}"></i>
-            </button>
-            <button class="quick-view" data-id="${productId}" aria-label="Quick view">
-              <i class="fas fa-eye"></i>
-            </button>
+            <button class="wishlist-btn" data-id="${productId}"><i class="far fa-heart"></i></button>
+            <button class="quick-view" data-id="${productId}"><i class="fas fa-eye"></i></button>
           </div>
         </div>
-        
         <div class="product-info">
-          <span class="product-category">${product.categoryName || "Uncategorized"}</span>
-          <h4><a href="product-details.html?id=${productId}">${product.name}</a></h4>
-          
-          <div class="product-rating">
-            ${this.renderStars(product.rating || 0)}
-            <span>(${product.reviewsCount || 0})</span>
-          </div>
-          
+          <span class="product-category">${this.escapeHTML(product.categoryName || "Uncategorized")}</span>
+          <h4><a href="product-details.html?id=${productId}">${this.escapeHTML(product.name)}</a></h4>
           <div class="product-price">
-            <span class="current">KSh ${(product.price || 0).toLocaleString()}</span>
-            ${product.oldPrice ? `<span class="old">KSh ${product.oldPrice.toLocaleString()}</span>` : ""}
-          </div>
-          
-          <div class="product-footer">
-            <span class="stock ${product.inStock !== false ? "in-stock" : "out-of-stock"}">
-              ${product.inStock !== false ? "In Stock" : "Out of Stock"}
-            </span>
-            <a href="product-details.html?id=${productId}" class="btn btn-primary btn-sm">View Details</a>
+            <span class="current">KSh ${Number(product.price || 0).toLocaleString()}</span>
           </div>
         </div>
-      </div>
-    `;
-  }
-
-  getBadges(product) {
-    let badges = "";
-    if (product.sale) badges += '<span class="badge sale">Sale</span>';
-    if (product.new) badges += '<span class="badge new">New</span>';
-    if (product.featured)
-      badges += '<span class="badge featured">Featured</span>';
-    return badges;
-  }
-
-  renderStars(rating) {
-    const full = Math.floor(rating);
-    const half = rating % 1 >= 0.5 ? 1 : 0;
-    const empty = 5 - full - half;
-    return "★".repeat(full) + (half ? "½" : "") + "☆".repeat(empty);
-  }
-
-  getEmptyStateHTML() {
-    return `
-      <div class="empty-state" style="text-align:center; padding: 40px;">
-        <i class="fas fa-box-open" style="font-size: 48px; color: var(--text-muted);"></i>
-        <h3>No Products Found</h3>
-        <p>Try adjusting your search query parameters or filters.</p>
       </div>
     `;
   }
 
   updateProductCount() {
-    if (this.countEl) {
-      this.countEl.innerText = `Showing ${this.products.length} of ${this.pagination.total} products`;
+    if (this.dom.countEl) {
+      const { products, pagination } = this.api.state;
+      this.dom.countEl.textContent = `Showing ${products.length} of ${pagination.total} products`;
     }
   }
 
-  showError(message) {
-    this.grid.innerHTML = `<div class="error-msg" style="color:var(--danger); text-align:center; padding:20px;">${message}</div>`;
+  toggleLoading(isLoading) {
+    if (this.dom.grid) {
+      this.dom.grid.style.opacity = isLoading ? "0.5" : "1";
+      this.dom.grid.style.pointerEvents = isLoading ? "none" : "auto";
+    }
   }
 
-  // ==========================================================
-  // SERVER PAGINATION ENGINE
-  // ==========================================================
+  showError(msg) {
+    if (this.dom.grid)
+      this.dom.grid.innerHTML = `<div class="error-msg">${this.escapeHTML(msg)}</div>`;
+  }
+
+  getEmptyStateHTML() {
+    return `<div class="empty-state"><h3>No Products Found</h3></div>`;
+  }
+
   renderPagination() {
-    const totalPages = this.pagination.pages;
-
-    if (totalPages <= 1) {
-      this.pageNumbers.innerHTML = "";
-      if (this.prevBtn) this.prevBtn.style.display = "none";
-      if (this.nextBtn) this.nextBtn.style.display = "none";
-      return;
-    }
-
-    if (this.prevBtn) {
-      this.prevBtn.style.display = "inline-flex";
-      this.prevBtn.disabled = this.pagination.page <= 1;
-    }
-    if (this.nextBtn) {
-      this.nextBtn.style.display = "inline-flex";
-      this.nextBtn.disabled = this.pagination.page >= totalPages;
-    }
-
-    let pages = [];
-    for (let i = 1; i <= totalPages; i++) {
-      pages.push(i);
-    }
-
-    this.pageNumbers.innerHTML = pages
-      .map(
-        (p) =>
-          `<button class="${p === this.pagination.page ? "active" : ""}" data-page="${p}">${p}</button>`,
-      )
-      .join("");
-
-    this.pageNumbers.querySelectorAll("button").forEach((btn) => {
-      btn.addEventListener("click", async () => {
-        this.pagination.page = parseInt(btn.dataset.page);
-        await this.loadProducts();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-      });
-    });
+    // Missing custom pagination layout loop tree code hooks map directly here
   }
-
-  // ==========================================================
-  // INTERACTIVE EVENT CONTROLS
-  // ==========================================================
-  // ==========================================================
-  // INTERACTIVE EVENT CONTROLS
-  // ==========================================================
-  setupEventListeners() {
-    // 1. Sort Controls Selection
-    if (this.sortSelect) {
-      this.sortSelect.addEventListener("change", async (e) => {
-        this.currentSort = e.target.value;
-        this.pagination.page = 1;
-        await this.loadProducts();
-      });
-    }
-
-    // 2. Real-Time Search Box
-    if (this.searchBtn && this.searchInput) {
-      this.searchBtn.addEventListener("click", async () => {
-        this.searchQuery = this.searchInput.value;
-        this.pagination.page = 1;
-        await this.loadProducts();
-      });
-      this.searchInput.addEventListener("keypress", async (e) => {
-        if (e.key === "Enter") {
-          this.searchQuery = this.searchInput.value;
-          this.pagination.page = 1;
-          await this.loadProducts();
-        }
-      });
-    }
-
-    // 3. Category Link Navigation Filters
-    if (this.categoryFilters) {
-      this.categoryFilters.forEach((link) => {
-        link.addEventListener("click", async (e) => {
-          e.preventDefault();
-          this.categoryFilters.forEach((l) => l.classList.remove("active"));
-          link.classList.add("active");
-          this.currentCategory = link.dataset.category || "all";
-          this.pagination.page = 1;
-          await this.loadProducts();
-        });
-      });
-    }
-
-    // 4. In Stock Toggle Box Check
-    if (this.inStockFilter) {
-      this.inStockFilter.addEventListener("change", async (e) => {
-        this.inStockOnly = e.target.checked;
-        this.pagination.page = 1;
-        await this.loadProducts();
-      });
-    }
-
-    // 5. Price Ranges
-    if (this.priceFilterBtn) {
-      this.priceFilterBtn.addEventListener("click", async () => {
-        this.minPrice = parseFloat(this.minPriceInput.value) || 0;
-        this.maxPrice =
-          this.maxPriceInput.value !== ""
-            ? parseFloat(this.maxPriceInput.value)
-            : "";
-        this.pagination.page = 1;
-        await this.loadProducts();
-      });
-    }
-  }
-} // Closes the Shop class
-
-// Automatically mount into view upon frame load context
-document.addEventListener("DOMContentLoaded", () => {
-  window.ShopInstance = new Shop();
-});
+}

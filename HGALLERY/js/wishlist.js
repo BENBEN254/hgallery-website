@@ -1,69 +1,96 @@
 /**
- * Wishlist Module
- * Handles wishlist functionality with localStorage
+ * Wishlist UI Controller Module
+ * Handles safe string interpolation, event delegation targets, and popups.
  */
+import { WishlistData } from "./WishlistData.js";
 
 export class Wishlist {
   constructor() {
-    this.items = [];
-    this.loadWishlist();
+    this.data = new WishlistData();
+    this.dom = {};
     this.init();
   }
 
   init() {
+    this.cacheDOM();
     this.renderWishlistPage();
-    this.setupEventListeners();
+    this.setupEventDelegation();
   }
 
-  loadWishlist() {
-    try {
-      const data = localStorage.getItem("hgallery_wishlist");
-      this.items = data ? JSON.parse(data) : [];
-    } catch (error) {
-      console.error("Error loading wishlist:", error);
-      this.items = [];
-    }
+  cacheDOM() {
+    this.dom.container = document.getElementById("wishlistContent");
   }
 
-  saveWishlist() {
-    try {
-      localStorage.setItem("hgallery_wishlist", JSON.stringify(this.items));
-    } catch (error) {
-      console.error("Error saving wishlist:", error);
-    }
+  escapeHTML(str) {
+    if (!str) return "";
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
   }
 
-  addItem(product) {
-    if (!this.items.find((item) => item.id === product.id)) {
-      this.items.push({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image || "/assets/images/products/placeholder.jpg",
+  setupEventDelegation() {
+    // High-Performance Delegation: Single click listener hook catches any interaction
+    if (this.dom.container) {
+      this.dom.container.addEventListener("click", (e) => {
+        const removeBtn = e.target.closest(".remove");
+        const cartBtn = e.target.closest(".add-to-cart");
+
+        if (removeBtn) {
+          e.preventDefault();
+          this.data.removeItem(removeBtn.dataset.id);
+          this.renderWishlistPage();
+          return;
+        }
+
+        if (cartBtn) {
+          e.preventDefault();
+          const targetItem = {
+            id: cartBtn.dataset.id,
+            name: cartBtn.dataset.name,
+            price: Number(cartBtn.dataset.price) || 0,
+            image: cartBtn.dataset.image,
+          };
+          // Cross-module execution bridge to hook your global cart instances
+          window.app?.cart?.addItem(targetItem);
+        }
       });
-      this.saveWishlist();
-      this.showNotification(`${product.name} added to wishlist!`);
-    } else {
-      this.showNotification(`${product.name} is already in your wishlist`);
     }
-  }
 
-  removeItem(productId) {
-    this.items = this.items.filter((item) => item.id !== productId);
-    this.saveWishlist();
-    this.renderWishlistPage();
-  }
+    // Dynamic global catalog product toggles binding
+    document.body.addEventListener("click", (e) => {
+      const toggleBtn = e.target.closest(".add-to-wishlist, .wishlist-toggle");
+      if (!toggleBtn) return;
 
-  isInWishlist(productId) {
-    return this.items.some((item) => item.id === productId);
+      e.preventDefault();
+      const product = {
+        id: toggleBtn.dataset.id || "1",
+        name: toggleBtn.dataset.name || "Product",
+        price: toggleBtn.dataset.price || "0",
+        image:
+          toggleBtn.dataset.image || "/assets/images/products/placeholder.jpg",
+      };
+
+      const operation = this.data.addItem(product);
+      this.showNotification(operation.msg);
+
+      if (operation.success) {
+        const icon = toggleBtn.querySelector("i");
+        if (icon) {
+          icon.classList.remove("far");
+          icon.classList.add("fas");
+        }
+      }
+    });
   }
 
   renderWishlistPage() {
-    const container = document.querySelector("#wishlistContent");
-    if (!container) return;
+    if (!this.dom.container) return;
 
-    if (this.items.length === 0) {
-      container.innerHTML = `
+    if (this.data.items.length === 0) {
+      this.dom.container.innerHTML = `
         <div class="empty-wishlist">
           <i class="fas fa-heart"></i>
           <h3>Your wishlist is empty</h3>
@@ -75,20 +102,22 @@ export class Wishlist {
     }
 
     let html = `<div class="wishlist-grid">`;
-    this.items.forEach((item) => {
+    this.data.items.forEach((item) => {
+      const sanitizedName = this.escapeHTML(item.name);
+
       html += `
         <div class="wishlist-item">
-          <button class="remove" data-id="${item.id}" aria-label="Remove from wishlist">
+          <button class="remove" data-id="${item.id}" aria-label="Remove item">
             <i class="fas fa-times"></i>
           </button>
           <div class="image">
-            <img src="${item.image}" alt="${item.name}" loading="lazy">
+            <img src="${item.image}" alt="${sanitizedName}" loading="lazy">
           </div>
           <div class="body">
-            <h4>${item.name}</h4>
-            <div class="price">KSh ${item.price.toLocaleString()}</div>
+            <h4>${sanitizedName}</h4>
+            <div class="price">KSh ${Number(item.price).toLocaleString()}</div>
             <button class="btn btn-primary add-to-cart" style="width: 100%; margin-top: 0.8rem; padding: 0.5rem;" 
-                    data-id="${item.id}" data-name="${item.name}" data-price="${item.price}" data-image="${item.image}">
+                    data-id="${item.id}" data-name="${sanitizedName}" data-price="${item.price}" data-image="${item.image}">
               <i class="fas fa-shopping-bag"></i> Add to Cart
             </button>
           </div>
@@ -97,53 +126,7 @@ export class Wishlist {
     });
     html += `</div>`;
 
-    container.innerHTML = html;
-
-    // Remove buttons
-    container.querySelectorAll(".remove").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const id = parseInt(btn.dataset.id);
-        this.removeItem(id);
-      });
-    });
-
-    // Add to cart buttons
-    container.querySelectorAll(".add-to-cart").forEach((btn) => {
-      btn.addEventListener("click", () => {
-        const product = {
-          id: parseInt(btn.dataset.id),
-          name: btn.dataset.name,
-          price: parseInt(btn.dataset.price),
-          image: btn.dataset.image,
-        };
-        window.app?.cart?.addItem(product);
-      });
-    });
-  }
-
-  setupEventListeners() {
-    // Wishlist toggle buttons
-    document
-      .querySelectorAll(".add-to-wishlist, .wishlist-toggle")
-      .forEach((btn) => {
-        btn.addEventListener("click", () => {
-          const product = {
-            id: parseInt(btn.dataset.id) || 1,
-            name: btn.dataset.name || "Product",
-            price: parseInt(btn.dataset.price) || 0,
-            image:
-              btn.dataset.image || "/assets/images/products/placeholder.jpg",
-          };
-          this.addItem(product);
-
-          // Update heart icon
-          const icon = btn.querySelector("i");
-          if (icon) {
-            icon.classList.toggle("fas");
-            icon.classList.toggle("far");
-          }
-        });
-      });
+    this.dom.container.innerHTML = html;
   }
 
   showNotification(message) {
@@ -162,12 +145,11 @@ export class Wishlist {
       border-radius: var(--radius-md);
       box-shadow: var(--shadow-lg);
       z-index: 9999;
-      animation: slideUp 0.3s ease;
       max-width: 400px;
     `;
     notification.innerHTML = `
       <i class="fas fa-heart" style="margin-right: 0.5rem; color: var(--accent);"></i>
-      ${message}
+      ${this.escapeHTML(message)}
     `;
 
     document.body.appendChild(notification);
